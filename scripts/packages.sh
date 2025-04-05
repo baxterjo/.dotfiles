@@ -7,8 +7,9 @@ packages=(
   ctags
   curl
   eza   # https://github.com/eza-community/eza
-  fzf   # https://github.com/junegunn/fzf
   fd # https://github.com/sharkdp/fd
+  font-meslo-lg-nerd-font
+  fzf   # https://github.com/junegunn/fzf
   git-delta # https://github.com/dandavison/delta
   gpg
   imagemagick

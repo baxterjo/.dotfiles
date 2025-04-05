@@ -1,27 +1,48 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #!/usr/bin/env zsh
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+: "$LANG:=\"en_US.UTF-8\""
+: "$LANGUAGE:=\"en\""
+: "$LC_CTYPE:=\"en_US.UTF-8\""
+: "$LC_ALL:=\"en_US.UTF-8\""
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
+export EDITOR="nvim"
+export GPG_TTY=$(tty)
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+export LANG LANGUAGE LC_CTYPE LC_ALL
+export MANPAGER='nvim +Man!'
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rg"
+export TERM="screen-256color"
 export PATH=$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# zsh-init
+source /opt/homebrew/opt/zinit/zinit.zsh
+
+# plugins
+zinit ice depth=1; zinit light zsh-users/zsh-syntax-highlighting
+zinit ice depth=1; zinit light zsh-users/zsh-autosuggestions
+zinit ice depth=1; zinit light Aloxaf/fzf-tab
+
+zinit ice depth"1" # git clone depth
+zinit light romkatv/powerlevel10k
+
+set completion-ignore-case on
+set match-hidden-files off # do not autocomplete hidden files unless the pattern explicitly begins with a dot
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -106,3 +127,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
