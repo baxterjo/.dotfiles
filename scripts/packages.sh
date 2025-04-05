@@ -4,6 +4,7 @@ packages=(
   bat     # https://github.com/sharkdp/bat
   bottom  # https://github.com/ClementTsang/bottom
   black   # Python code formatter
+  cmake   # https://cmake.org/
   ctags
   curl
   eza   # https://github.com/eza-community/eza
