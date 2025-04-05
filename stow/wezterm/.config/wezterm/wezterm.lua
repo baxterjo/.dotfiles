@@ -4,9 +4,9 @@ local wezterm = require('wezterm')
 local act = wezterm.action
 
 -- https://wezfurlong.org/wezterm/config/lua/wezterm/target_triple.html
-local is_windows = wezterm.target_triple == 'x86_64-pc-windows-msvc'
-local font = 'MonoLisa'
-local key_mod_panes = is_windows and 'ALT' or 'CMD'
+local is_linux = wezterm.target_triple == 'x86_64-unknown-linux-gnu'
+local font = 'JetBrains Mono'
+local key_mod_panes = is_linux and 'ALT' or 'CMD'
 
 -- Global state
 local state = {
@@ -432,7 +432,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
   }
 end)
 
-local background = '#161616'
+local background = '#292D3E'
 wezterm.on('update-right-status', function(window, pane)
   local process = ''
 
@@ -466,11 +466,11 @@ end)
 
 local colors = {
   background = background,
-  cursor_bg = '#a9a1e1',
+  cursor_bg = '#FFCB6B',
   cursor_fg = background,
-  cursor_border = '#fb4934',
+  cursor_border = '#FFCB6B',
   selection_fg = background,
-  selection_bg = '#fb4934',
+  selection_bg = '#FFCB6B',
   quick_select_label_bg = { Color = '#60b5de' },
   quick_select_label_fg = { Color = '#ffffff' },
   quick_select_match_bg = { Color = '#c07d9e' },
@@ -480,7 +480,7 @@ local colors = {
     inactive_tab_edge = 'rgba(28, 28, 28, 0.9)',
     active_tab = {
       bg_color = background,
-      fg_color = '#c0c0c0',
+      fg_color = '#FFFFFF',
     },
     inactive_tab = {
       bg_color = background,
@@ -524,7 +524,7 @@ local config = {
       font = wezterm.font(font, { italic = false, weight = 'Bold' }),
     },
   },
-  font_size = is_windows and 14.0 or 20.0,
+  font_size =  20.0,
   -- Disable font ligatures
   harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' },
   hide_tab_bar_if_only_one_tab = false,
@@ -563,7 +563,8 @@ local config = {
     PATH = '/opt/homebrew/bin:/home/bmayo/.go/current/bin:' .. os.getenv('PATH'),
   },
   show_new_tab_button_in_tab_bar = false,
-  show_close_tab_button_in_tabs = false,
+  -- Nightly only
+  -- show_close_tab_button_in_tabs = false,
   switch_to_last_active_tab_when_closing_tab = true,
   tab_max_width = 80,
   underline_position = -4,
@@ -574,21 +575,11 @@ local config = {
   window_decorations = 'RESIZE',
   window_frame = {
     font = wezterm.font({ family = font }),
-    font_size = is_windows and 12.0 or 18.0,
+    font_size = 18.0,
     active_titlebar_bg = colors.background,
     inactive_titlebar_bg = colors.background,
   },
 }
 
-if is_windows then
-  config.default_prog = { 'wsl.exe', '-d', 'Ubuntu-20.04', '--cd', '~' }
-  config.wsl_domains = {
-    {
-      name = 'WSL:Ubuntu-20.04',
-      distribution = 'Ubuntu-20.04',
-      default_cwd = '~',
-    },
-  }
-end
 
 return config
