@@ -30,8 +30,6 @@ stow_dotfiles() {
     ".config/ripgrep"
     ".config/vim"
     ".config/wezterm"
-    ".gnupg"
-    ".ssh"
   )
   info "Removing existing config files"
   for f in "${files[@]}"; do

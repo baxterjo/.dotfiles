@@ -20,7 +20,7 @@
 [user]
   name = Jordan Baxter
 	email = jordan.baxter@ditto.live
-	signingkey = 7916B32F93986A7A
+	signingkey = CED150A1C5690CB3
 
 [include]
   path = ~/work/.gitconfig
