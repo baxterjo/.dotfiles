@@ -88,37 +88,6 @@ local servers = {
   bashls = {
     filetypes = { 'sh', 'zsh' },
   },
-  gopls = {
-    -- buildFlags = { '-tags=stack' },
-    cmd_env = { GOFLAGS = '-tags=stack' },
-    analyses = {
-      unusedparams = true,
-      unusedvariable = true,
-      useany = true,
-    },
-    codelenses = {
-      generate = true,
-      gc_details = true,
-      regenerate_cgo = true,
-      tidy = true,
-      upgrade_depdendency = true,
-      vendor = true,
-    },
-    hints = {
-      assignVariableTypes = true,
-      compositeLiteralFields = true,
-      compositeLiteralTypes = true,
-      constantValues = true,
-      functionTypeParameters = true,
-      parameterNames = true,
-      rangeVariableTypes = true,
-    },
-    experimentalPostfixCompletions = true,
-    gofumpt = true,
-    linksInHover = false,
-    staticcheck = true,
-    usePlaceholders = true,
-  },
   lua_ls = {
     Lua = {
       diagnostics = {
