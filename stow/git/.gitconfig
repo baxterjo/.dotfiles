@@ -1,10 +1,14 @@
 [core]
+  # What tool will git use when displaying text output.
   pager = delta
   # avoid problems when changing a case of a filename
   ignorecase = false
+  # Global gitignore file
   excludesfile = ~/.config/git/ignore
+
   untrackedcache = true
   fsmonitor = true
+  editor = nvim
 
 [init]
   templatedir = ~/.config/git/templates
@@ -14,9 +18,9 @@
   program = gpg
 
 [user]
-  name = Brian Mayo
-  email = ioprotium@gmail.com
-  signingKey = 1B2B3771
+  name = Jordan Baxter
+	email = jordan.baxter@ditto.live
+	signingkey = 3663917BD2AB60AB
 
 [include]
   path = ~/work/.gitconfig
@@ -47,9 +51,6 @@
   default = simple
   autoSetupRemote = true
 
-[merge]
-  conflictstyle = zdiff3
-
 [rebase]
   # Stash and pop uncommitted changes on rebase
   autostash = true
@@ -74,11 +75,10 @@
 
 [diff]
   colorMoved = plain
-  algorithm = histogram
 
 [help]
   # Run corrected command after 1 second
-  autocorrect = 20
+  autocorrect = prompt
 
 [delta]
   navigate = true  # use n and N to move between diff sections
@@ -187,7 +187,3 @@
   local = yellow
   remote = green
 
-# reuse recorded resolution
-[rerere]
-	enabled = true
-  autoupdate = true

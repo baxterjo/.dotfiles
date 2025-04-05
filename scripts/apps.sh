@@ -1,12 +1,11 @@
 install_macos_apps() {
   local apps=(
-    arduino
-    clipy # https://github.com/Clipy/Clipy
     firefox
     google-chrome
     spotify
-    vlc
-    wez/wezterm/wezterm # https://wezfurlong.org/wezterm
+    wezterm               # https://wezfurlong.org/wezterm
+    unnaturalscrollwheels # Reverse scrolling for scroll wheels vs track pads.
+    betterdisplay         # More control over display settings.
   )
 
   info "Installing macOS apps..."
@@ -15,8 +14,6 @@ install_macos_apps() {
 
 install_masApps() {
   local apps=(
-    "1444383602" # Good Notes 5
-    "768053424"  # Gappling: svg viewer https://apps.apple.com/us/app/gapplin/id768053424
   )
 
   info "Installing App Store apps..."

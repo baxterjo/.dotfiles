@@ -11,13 +11,14 @@ set -o pipefail
 . scripts/config.sh
 . scripts/osx.sh
 . scripts/packages.sh
+. scripts/oh-my-zsh.sh
 
 cleanup() {
   info "Finishing..."
 }
 
 wait_input() {
-  read -p -r "Press enter to continue: "
+  read -r -p "Press enter to continue: "
 }
 
 main() {
@@ -44,29 +45,12 @@ main() {
   wait_input
   install_macos_apps
 
-  install_masApps
-  success "Finished installing macOS apps"
-
-  info "################################################################################"
-  info "PiP tools"
-  info "################################################################################"
-  wait_input
-  install_python_tools
-  success "Finished installing python packages"
-
   info "################################################################################"
   info "Rust tools"
   info "################################################################################"
   wait_input
   install_rust_tools
   success "Finished installing Rust tools"
-
-  info "################################################################################"
-  info "Golang tools"
-  info "################################################################################"
-  wait_input
-  install_go_tools
-  success "Finished installing Golang tools"
 
   info "################################################################################"
   info "Configuration"

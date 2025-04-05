@@ -1,42 +1,26 @@
-taps=(
-  homebrew/cask
-  homebrew/cask-fonts
-  homebrew/core
-  wez/wezterm
-)
+
 
 packages=(
-  bat    # https://github.com/sharkdp/bat
-  bottom # https://github.com/ClementTsang/bottom
-  cmake
+  bat     # https://github.com/sharkdp/bat
+  bottom  # https://github.com/ClementTsang/bottom
+  black   # Python code formatter
   ctags
   curl
-  dasel # https://github.com/TomWright/dasel
-  dust  # https://github.com/bootandy/dust
   eza   # https://github.com/eza-community/eza
   fzf   # https://github.com/junegunn/fzf
-  fd    # https://github.com/sharkdp/fd
-  gettext
+  fd # https://github.com/sharkdp/fd
   git-delta # https://github.com/dandavison/delta
   gpg
-  go       # golang
-  graphviz # https://graphviz.org/
-  grpcurl  # https://github.com/fullstorydev/grpcurl
   imagemagick
   jq
-  k9s # https://github.com/derailed/k9s
-  kubernetes-cli
   hyperfine  # https://github.com/sharkdp/hyperfine
-  lazydocker # https://github.com/jesseduffield/lazydocker
-  lf         # https://github.com/gokcehan/lf
-  libpq
+  # lf         # https://github.com/gokcehan/lf
+  llvm 
   mas # https://github.com/mas-cli/mas
   neovim
-  node
   nmap
   openssl
   pinentry-mac
-  postgresql
   python3
   protobuf
   ripgrep # https://github.com/BurntSushi/ripgre
@@ -45,8 +29,7 @@ packages=(
   shellcheck
   stow
   telnet
-  xo/xo/usql # https://github.com/xo/usql
-  # websocat   # https://github.com/vi/websocat
+  tmux
   wget
   zsh
   zinit  # https://github.com/zdharma-continuum/zinit
@@ -54,8 +37,6 @@ packages=(
 )
 
 install_packages() {
-  info "Configuring taps"
-  apply_brew_taps "${taps[@]}"
 
   info "Installing packages..."
   install_brew_formulas "${packages[@]}"

@@ -1,24 +1,6 @@
 setup_osx() {
   info "Configuring MacOS default settings"
 
-  # Disable prompting to use new external drives as Time Machine volume
-  defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-  # Hide external hard drives on desktop
-  defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
-
-  # Hide hard drives on desktop
-  defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
-
-  # Hide removable media hard drives on desktop
-  defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
-
-  # Hide mounted servers on desktop
-  defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
-
-  # Hide icons on desktop
-  defaults write com.apple.finder CreateDesktop -bool false
-
   # Avoid creating .DS_Store files on network volumes
   defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
@@ -47,9 +29,6 @@ setup_osx() {
   # For other paths, use `PfLo` and `file:///full/path/here/`
   defaults write com.apple.finder NewWindowTarget -string "PfHm"
   defaults write com.apple.finder NewWindowTargetPath -string "file:///${HOME}/"
-
-  # Have the Dock show only active apps
-  defaults write com.apple.dock static-only -bool true
 
   # Set Dock autohide
   defaults write com.apple.dock autohide -bool true

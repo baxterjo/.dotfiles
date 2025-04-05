@@ -15,19 +15,16 @@ setup_github_ssh() {
 stow_dotfiles() {
   local files=(
     ".aliases"
-    ".config/starship.toml"
     ".gitconfig"
     ".jq"
     ".profile*"
     ".vimrc"
     ".zshrc"
     ".zshenv"
-    ".zprofile"
   )
   local folders=(
     ".config/fd"
     ".config/git"
-    ".config/kitty"
     ".config/lf"
     ".config/nvim"
     ".config/ripgrep"

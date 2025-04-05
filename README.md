@@ -6,7 +6,7 @@
 /_____/\____/\__/_/ /_/_/\___/____/
 ```
 
-[![shellcheck](https://github.com/protiumx/.dotfiles/actions/workflows/shell.yml/badge.svg)](https://github.com/protiumx/.dotfiles/actions/workflows/shell.yml)
+[![shellcheck](https://github.com/protiumx/.dotfiles/actions/workflows/shell.yml/badge.svg)](https://github.com/baxterjo/.dotfiles/actions/workflows/shell.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 My dotfiles to set up a dev environment in a **MacOS** machine.
@@ -44,7 +44,7 @@ Check all [plugins](./stow/nvim/.config/nvim/lua/plugins).
 
 ### CLI
 All CLI apps are listed in the [packages](./scripts/packages.sh) script.
-CLIs from other sources like `cargo` and `go` are listed in [cli](./scripts/cli.sh) script.
+CLIs from other sources like `cargo` are listed in [cli](./scripts/cli.sh) script.
 
 ## Installing
 
@@ -53,7 +53,7 @@ CLIs from other sources like `cargo` and `go` are listed in [cli](./scripts/cli.
 
 Run the `dotfiles` script:
 ```sh
-curl -sO https://raw.githubusercontent.com/protiumx/.dotfiles/main/dotfiles
+curl -sO https://raw.githubusercontent.com/baxterjo/.dotfiles/main/dotfiles
 ```
 
 ## Reusing
@@ -74,5 +74,7 @@ Simulate `stow` links
 stow -nSv nvim
 ```
 
-## License
+## License / Credits
+Big thanks to Bryan Mayo for a jump off point for this repository.
+
 Licensed under MIT, © Brian Mayo 2025: https://protiumx.dev

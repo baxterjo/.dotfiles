@@ -1,35 +1,3 @@
-install_python_tools() {
-  local packages=(
-    black # https://github.com/psf/black
-  )
-
-  for p in "${packages[@]}"; do
-    if pip3 show "$p" >/dev/null; then
-      warn "Package $p is already installed"
-    else
-      info "Installing package < $p >"
-      pip3 install "$p"
-    fi
-  done
-}
-
-install_go_tools() {
-  local packages=(
-    "github.com/go-delve/delve/cmd/dlv@latest"
-    "mvdan.cc/sh/v3/cmd/shfmt@latest"
-    "mvdan.cc/gofumpt@latest"
-  )
-
-  for p in "${packages[@]}"; do
-    if ! command -v "$p" &>/dev/null; then
-      info "Installing go tool < $p >"
-      go install "$p"
-    else
-      info "$p is already installed"
-    fi
-  done
-}
-
 install_rust_tools() {
   source "$HOME/.cargo/env"
 
@@ -39,14 +7,16 @@ install_rust_tools() {
   fi
 
   local cargo_packages=(
-    "cargo-audit --features=fix"
+    'cargo-audit --features=fix'
     cargo-edit
-    cargo-update
+    cargo-expand
+    cargo-llvm-cov
+    cargo-nextest
   )
 
   for p in "${cargo_packages[@]}"; do
-    info "Installing <cargo $p>"
-    cargo install "$p"
+    info "Installing <cargo ${p//[\"\']}>"
+    cargo install ${p//[\"\']}
   done
 
   local rustup_components=(
@@ -59,3 +29,4 @@ install_rust_tools() {
     rustup component add "$p"
   done
 }
+
