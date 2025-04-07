@@ -1,0 +1,1 @@
+-- vim.keymap.set("n", "-", MiniFiles.open, {desc = "Open parent directory"})
