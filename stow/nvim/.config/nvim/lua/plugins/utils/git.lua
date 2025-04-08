@@ -30,6 +30,11 @@ return {
         ':Neogit commit<cr>',
         desc = 'Commit (Neogit)',
       },
+      {
+        '<leader>gp',
+        ':Neogit push<cr>',
+        desc = 'Push (Neogit)',
+      },
     },
   },
   {
