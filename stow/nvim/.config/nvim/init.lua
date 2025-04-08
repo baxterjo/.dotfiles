@@ -2,23 +2,18 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
 -- Load plugins
-require("config.lazy")
+require('config.lazy')
 
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
+vim.cmd('set expandtab')
+vim.cmd('set tabstop=2')
+vim.cmd('set softtabstop=2')
+vim.cmd('set shiftwidth=2')
 
 -- Always configure plugins BEFORE configuring key mappings.
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 
-
-
-
-
-require("config.keymappings")
+require('config.keymappings')
