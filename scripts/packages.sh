@@ -4,6 +4,7 @@ packages=(
   bat     # https://github.com/sharkdp/bat
   bottom  # https://github.com/ClementTsang/bottom
   black   # Python code formatter
+  buf
   cmake   # https://cmake.org/
   ctags
   curl
@@ -14,6 +15,7 @@ packages=(
   git-delta # https://github.com/dandavison/delta
   gpg
   imagemagick
+  isort
   jq
   hyperfine  # https://github.com/sharkdp/hyperfine
   # lf         # https://github.com/gokcehan/lf
@@ -30,6 +32,7 @@ packages=(
   sd # https://github.com/chmln/sd
   shellcheck
   stow
+  stylua
   telnet
   tmux
   wget
