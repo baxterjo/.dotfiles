@@ -10,10 +10,16 @@ return {
   lazy = false, -- neo-tree will lazily load itself
   opts = {
     -- fill any relevant options here
+    closeif_last_window = true,
     filesystem = {
       filtered_items = {
         hide_dotfiles = false,
+        hide_gitignored = false,
       },
+    },
+    follow_current_file = {
+      enabled = true,
+      leave_dirs_open = false,
     },
   },
 }

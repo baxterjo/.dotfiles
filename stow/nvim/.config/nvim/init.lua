@@ -13,6 +13,8 @@ vim.cmd('set tabstop=2')
 vim.cmd('set softtabstop=2')
 vim.cmd('set shiftwidth=2')
 
+vim.cmd.colorscheme('catppuccin-macchiato')
+
 -- Always configure plugins BEFORE configuring key mappings.
 vim.g.mapleader = ' '
 

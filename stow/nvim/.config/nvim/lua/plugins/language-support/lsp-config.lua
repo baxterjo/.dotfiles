@@ -34,11 +34,14 @@ return {
       lspconfig.jsonls.setup({ capabilities = capabilities })
       lspconfig.yamlls.setup({ capabilities = capabilities })
       lspconfig.bashls.setup({ capabilities = capabilities })
-      lspconfig.pywright.setup({ capabilities = capabilities })
-
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
-      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {})
+      lspconfig.pyright.setup({ capabilities = capabilities })
+    end,
+    keys = function()
+      return {
+        { 'K', vim.lsp.buf.hover },
+        { 'gd', vim.lsp.buf.definition },
+        { '<leader>ca', vim.lsp.buf.code_action },
+      }
     end,
   },
 }
