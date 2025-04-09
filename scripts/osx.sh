@@ -31,10 +31,10 @@ setup_osx() {
   defaults write com.apple.finder NewWindowTargetPath -string "file:///${HOME}/"
 
   # Set Dock autohide
-  defaults write com.apple.dock autohide -bool true
+  defaults write com.apple.dock autohide -bool false
   defaults write com.apple.dock largesize -float 128
   defaults write com.apple.dock "minimize-to-application" -bool true
-  defaults write com.apple.dock tilesize -float 32
+  defaults write com.apple.dock tilesize -float 64
 
   # Secondary click in external mouse
   defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string "TwoButton"

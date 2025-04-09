@@ -1,11 +1,12 @@
 install_macos_apps() {
   local apps=(
+    betterdisplay         # More control over display settings.
     firefox
     google-chrome
     spotify
-    wezterm               # https://wezfurlong.org/wezterm
     unnaturalscrollwheels # Reverse scrolling for scroll wheels vs track pads.
-    betterdisplay         # More control over display settings.
+    wezterm               # https://wezfurlong.org/wezterm
+    wireshark
   )
 
   info "Installing macOS apps..."
