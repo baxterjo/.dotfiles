@@ -20,8 +20,20 @@ return {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     opts = {
-      ensure_installed = { "rust_analyzer", "pyright", "ansiblels", "bashls", "yamlls", "jsonls" },
+      ensure_installed = {
+        "pyright",
+        "ansiblels",
+        "bashls",
+        "yamlls",
+        "jsonls",
+      },
       auto_install = true,
+      setup = {
+        -- rustaceanvim takes care of rust setup
+        rust_analyzer = function()
+          return true
+        end,
+      },
     },
   },
   {
@@ -31,14 +43,25 @@ return {
       vim.g.rustfmt_autosave = 1
     end,
   },
-
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      local configs = require("nvim-treesitter.configs")
+      configs.setup({
+        auto_install = true,
+        ensure_installed = { "markdown", "markdown_inline", "html" },
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end,
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "echasnovski/mini.icons",
+    },
+    opts = {},
+  },
 }

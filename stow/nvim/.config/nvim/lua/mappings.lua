@@ -1,4 +1,4 @@
-require "nvchad.mappings"
+require("nvchad.mappings")
 
 -- add yours here
 
@@ -12,4 +12,5 @@ map("n", "<leader>gd", "<cmd>Neogit diff<cr>", { desc = "Diff (Neogit)" })
 map("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Commit (Neogit)" })
 map("n", "<leader>gp", "<cmd>Neogit push<cr>", { desc = "Push (Neogit)" })
 
+vim.keymap.del("n", "<leader>h")
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
