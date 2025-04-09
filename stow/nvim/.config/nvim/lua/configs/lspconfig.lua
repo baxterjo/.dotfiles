@@ -4,21 +4,13 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls" }
+local servers = { rust_analyzer = {}, lua_ls = {}, ansiblels = {}, pyright = {} }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
+for name, opts in ipairs(servers) do
+  opts.on_attach = nvlsp.on_attach
+  opts.on_init = nvlsp.on_init
+  opts.capabilities = nvlsp.capabilities
+  lspconfig[name].setup(opts)
 end
-
--- configuring single server, example: typescript
--- lspconfig.ts_ls.setup {
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
--- }
