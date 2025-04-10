@@ -10,10 +10,18 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
+vim.lsp.inlay_hint.enable(true)
 
 vim.g.rustaceanvim = {
   -- Plugin configuration
-  tools = {},
+  tools = {
+
+    on_initiated = function(_, _)
+      -- Flicker inlay hints when rust analyzer is finished initializing
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end,
+  },
   -- LSP configuration
   server = {
     on_attach = function(_, bufnr)
