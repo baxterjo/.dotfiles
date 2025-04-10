@@ -25,19 +25,18 @@ Summary:
 Main apps:
 - Terminal: [Wezterm](https://wezfurlong.org/wezterm/)
 - Text Editor: [neovim](https://neovim.io/)
-- Browser: Chrome
+- Browser: Firefox
 
 For more details check the [apps](./scripts/apps.sh) script.
 
 ## Neovim Plugins
 
+Base Config:
+- [NvChad](https://nvchad.com/)
+
 Main plugins:
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
-- [Lualine](https://github.com/nvim-lualine/lualine.nvim)
-- [Neotree](https://github.com/nvim-neo-tree/neo-tree.nvim)
 - [Mason](https://github.com/williamboman/mason.nvim)
-- [Cmp](https://github.com/hrsh7th/nvim-cmp)
-- Theme: [gruvbox](https://github.com/ellisonleao/gruvbox.nvim)
 
 Plugins are managed with [lazy.nvim](https://github.com/folke/lazy.nvim).
 Check all [plugins](./stow/nvim/.config/nvim/lua/plugins).
@@ -75,6 +74,6 @@ stow -nSv nvim
 ```
 
 ## License / Credits
-Big thanks to Bryan Mayo for a jump off point for this repository.
+Big thanks to Bryan Mayo for providing the base repository that this one is forked from.
 
 Licensed under MIT, © Brian Mayo 2025: https://protiumx.dev

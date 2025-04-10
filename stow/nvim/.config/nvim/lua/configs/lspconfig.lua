@@ -5,7 +5,7 @@ local lspconfig = require("lspconfig")
 
 -- EXAMPLE
 -- Rust analyzer is setup by rustaceanvim.
-local servers = { ansiblels = {}, pyright = {} }
+local servers = { marksman = {}, ansiblels = {}, pyright = {} }
 local nvlsp = require("nvchad.configs.lspconfig")
 
 -- lsps with default config
