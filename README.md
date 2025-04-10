@@ -15,12 +15,6 @@ Summary:
 - [stows](https://www.gnu.org/software/stow/) all config files
 - Sets all my preferred MacOS configurations
 
-## Previews
-
-![preview 1](./preview-1.png)
-
-![preview 2](./preview-2.png)
-
 ## Apps
 Main apps:
 - Terminal: [Wezterm](https://wezfurlong.org/wezterm/)
