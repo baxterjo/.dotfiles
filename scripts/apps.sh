@@ -3,6 +3,7 @@ install_macos_apps() {
     betterdisplay         # More control over display settings.
     firefox
     google-chrome
+    postman
     spotify
     unnaturalscrollwheels # Reverse scrolling for scroll wheels vs track pads.
     wezterm               # https://wezfurlong.org/wezterm
