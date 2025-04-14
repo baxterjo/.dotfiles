@@ -12,6 +12,7 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
 vim.lsp.inlay_hint.enable(true)
 
+-- Rustaceanvim Config
 vim.g.rustaceanvim = {
   -- Plugin configuration
   tools = {

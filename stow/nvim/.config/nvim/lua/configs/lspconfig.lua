@@ -1,17 +1,20 @@
 -- load defaults i.e lua_lsp
 require("nvchad.configs.lspconfig").defaults()
-
-local lspconfig = require("lspconfig")
+local nvlsp = require("nvchad.configs.lspconfig")
 
 -- EXAMPLE
 -- Rust analyzer is setup by rustaceanvim.
-local servers = { marksman = {}, ansiblels = {}, pyright = {} }
-local nvlsp = require("nvchad.configs.lspconfig")
+local servers = {
+  marksman = {},
+  ansiblels = {},
+  pyright = {},
+  protols = {},
+}
 
 -- lsps with default config
-for name, opts in ipairs(servers) do
+for name, opts in pairs(servers) do
   opts.on_attach = nvlsp.on_attach
   opts.on_init = nvlsp.on_init
   opts.capabilities = nvlsp.capabilities
-  lspconfig[name].setup(opts)
+  require("lspconfig")[name].setup(opts)
 end

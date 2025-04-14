@@ -1,6 +1,12 @@
 return {
   -- Core / Common
   {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("configs.lspconfig")
+    end,
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
     opts = {
