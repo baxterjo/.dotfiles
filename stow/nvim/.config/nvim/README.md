@@ -1,0 +1,4 @@
+# Nvim Config
+
+## Debugging Config
+
