@@ -10,6 +10,7 @@ packages=(
   curl
   eza   # https://github.com/eza-community/eza
   fd # https://github.com/sharkdp/fd
+  ffmpeg
   font-meslo-lg-nerd-font
   fzf   # https://github.com/junegunn/fzf
   git-delta # https://github.com/dandavison/delta
