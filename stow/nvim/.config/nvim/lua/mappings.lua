@@ -11,6 +11,12 @@ map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Git Neogit Open" })
 map("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git Neogit Commit" })
 map("n", "<leader>gp", "<cmd>Neogit push<cr>", { desc = "Git Neogit Push" })
 
+map("i", "<C-i>", function()
+  require("copilot.suggestion").toggle_auto_trigger()
+end, {
+  desc = "Copilot toggle",
+})
+
 map("n", "<leader>ti", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })

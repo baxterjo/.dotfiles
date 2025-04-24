@@ -8,4 +8,12 @@ return {
     "RRethy/vim-illuminate",
     lazy = false,
   },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
 }
