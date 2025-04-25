@@ -16,10 +16,29 @@ M.base46 = {
 }
 
 -- M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
+M.ui = {
+  statusline = {
+    theme = "default",
+    separator_style = "default",
+    order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "my_lsp", "cwd", "cursor" },
+    modules = {
+      my_lsp = function()
+        if rawget(vim, "lsp") then
+          -- TODO: Add a client aggregator, (more than one client can be active at a time.)
+          for _, client in ipairs(vim.lsp.get_clients()) do
+            if
+              client.attached_buffers[vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)]
+              and client.name ~= "copilot"
+            then
+              return (vim.o.columns > 100 and "   LSP ~ " .. client.name .. " ") or "   LSP "
+            end
+          end
+        end
+
+        return "   LSP ~ None "
+      end,
+    },
+  },
+}
 
 return M
