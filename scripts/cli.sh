@@ -1,5 +1,4 @@
 install_rust_tools() {
-  source "$HOME/.cargo/env"
 
   if ! command -v rust-analyzer &>/dev/null; then
     info "Installing rust-analyzer"

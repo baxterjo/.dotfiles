@@ -57,10 +57,12 @@ main() {
   info "################################################################################"
   wait_input
 
-  setup_osx
-  success "Finished configuring MacOS defaults. NOTE: A restart is needed"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+   setup_osx
+    success "Finished configuring MacOS defaults. NOTE: A restart is needed"
+  fi
 
-  stow_dotfiles
+   stow_dotfiles
   success "Finished stowing dotfiles"
 
   info "################################################################################"
