@@ -39,8 +39,6 @@ main() {
   install_oh_my_zsh
   success "Finished installing Oh-my-zsh"
   
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-  fi
   info "################################################################################"
   info "Cask Apps"
   info "################################################################################"
