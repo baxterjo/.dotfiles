@@ -1,6 +1,6 @@
 
 
-packages=(
+generic_packages=(
   bat     # https://github.com/sharkdp/bat
   bottom  # https://github.com/ClementTsang/bottom
   black   # Python code formatter
@@ -20,7 +20,6 @@ packages=(
   hyperfine  # https://github.com/sharkdp/hyperfine
   # lf         # https://github.com/gokcehan/lf
   llvm 
-  mas # https://github.com/mas-cli/mas
   neovim
   nmap
   openssl
@@ -41,10 +40,23 @@ packages=(
   zoxide # https://github.com/ajeetdsouza/zoxide
 )
 
+mac_packages=(
+  mas # https://github.com/mas-cli/mas
+)
+
 install_packages() {
 
   info "Installing packages..."
-  install_brew_formulas "${packages[@]}"
+  install_brew_formulas "${generic_packages[@]}"
+
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "No linux specific packages to install"
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    install_brew_formulas "${generic_packages[@]}"
+  else
+    echo "${OSTYPE} not supported."
+    exit 1
+  fi
 
   info "Cleaning up brew packages..."
   brew cleanup

@@ -2,8 +2,13 @@
 
 set -o errexit
 
-REPO_URL=https://github.com/protiumx/.dotfiles.git
+REPO_URL=https://github.com/baxterjo/.dotfiles.git
 REPO_PATH="$HOME/.dotfiles"
+
+if [ -n "$REPO_BRANCH" ]
+then
+  echo "Branch argument supplied: ${1}"
+fi
 
 reset_color=$(tput sgr 0)
 
@@ -33,15 +38,63 @@ install_xcode() {
   fi
 }
 
+add_homebrew_to_path() {
+  case "${SHELL}" in
+    */bash*)
+      if [[ -n "${HOMEBREW_ON_LINUX-}" ]]
+      then
+        shell_rcfile="${HOME}/.bashrc"
+      else
+        shell_rcfile="${HOME}/.bash_profile"
+      fi
+      ;;
+    */zsh*)
+      if [[ -n "${HOMEBREW_ON_LINUX-}" ]]
+      then
+        shell_rcfile="${ZDOTDIR:-"${HOME}"}/.zshrc"
+      else
+        shell_rcfile="${ZDOTDIR:-"${HOME}"}/.zprofile"
+      fi
+      ;;
+    */fish*)
+      shell_rcfile="${HOME}/.config/fish/config.fish"
+      ;;
+    *)
+      shell_rcfile="${ENV:-"${HOME}/.profile"}"
+      ;;
+  esac
+
+  
+}
+
 install_homebrew() {
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
   if ! command -v brew &>/dev/null; then
     info "Installing homebrew..."
     sudo --validate # reset `sudo` timeout to use Homebrew install in noninteractive mode
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
   else
     warn "Homebrew already installed"
   fi
+}
+
+bootstrap_mac() {
+  install_xcode
+  install_homebrew
+
+  info "Installing Git"
+  brew install git
+}
+
+
+bootstrap_linux(){
+  sudo apt-get install -y build-essential procps curl file git
+  install_homebrew
+
+  test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+  test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 }
 
 info "########################"
@@ -50,16 +103,20 @@ info "########################"
 read -p "Press enter to start:"
 info "Bootstraping..."
 
-install_xcode
-install_homebrew
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  bootstrap_linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  bootstrap_mac
+else
+  echo "${OSTYPE} not supported."
+  exit 1
+fi
 
-info "Installing Git"
-brew install git
-
-info "Cloning .dotfiles repo from $REPO_URL into $REPO_PATH"
-git clone "$REPO_URL" "$REPO_PATH"
+info "Cloning .dotfiles repo from $REPO_URL at $REPO_BRANCH into $REPO_PATH"
+git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_PATH"
 
 info "Change path to $REPO_PATH"
 cd "$REPO_PATH" >/dev/null
+git pull  # This is useful for active testing
 
 /bin/bash ./install.sh
