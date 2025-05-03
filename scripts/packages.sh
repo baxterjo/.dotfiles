@@ -23,7 +23,6 @@ generic_packages=(
   neovim
   nmap
   openssl
-  pinentry-mac
   python3
   protobuf
   ripgrep # https://github.com/BurntSushi/ripgre
@@ -41,18 +40,25 @@ generic_packages=(
 )
 
 mac_packages=(
+  pinentry-mac
   mas # https://github.com/mas-cli/mas
+)
+
+linux_packages=(
+  pinentry
 )
 
 install_packages() {
 
-  info "Installing packages..."
+  info "Installing generic packages..."
   install_brew_formulas "${generic_packages[@]}"
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    echo "No linux specific packages to install"
+    info "Installing linux packages..."
+    install_brew_formulas "${linux_packages[@]}"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
-    install_brew_formulas "${generic_packages[@]}"
+    info "Installing mac packages..."
+    install_brew_formulas "${mac_packages[@]}"
   else
     echo "${OSTYPE} not supported."
     exit 1

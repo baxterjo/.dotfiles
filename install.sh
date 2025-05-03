@@ -38,12 +38,14 @@ main() {
   wait_input
   install_oh_my_zsh
   success "Finished installing Oh-my-zsh"
-
+  
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+  fi
   info "################################################################################"
-  info "MacOS Apps"
+  info "Cask Apps"
   info "################################################################################"
   wait_input
-  install_macos_apps
+  install_apps
 
   info "################################################################################"
   info "Rust tools"
