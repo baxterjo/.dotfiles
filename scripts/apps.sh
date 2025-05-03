@@ -2,6 +2,7 @@ install_macos_apps() {
   local apps=(
     betterdisplay         # More control over display settings.
     firefox
+    font-meslo-lg-nerd-font
     google-chrome
     keycastr
     postman
