@@ -31,7 +31,6 @@ generic_packages=(
   shellcheck
   stow
   stylua
-  telnet
   tmux
   wget
   zsh
@@ -42,6 +41,7 @@ generic_packages=(
 mac_packages=(
   pinentry-mac
   mas # https://github.com/mas-cli/mas
+  telnet
 )
 
 linux_packages=(
