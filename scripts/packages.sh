@@ -45,6 +45,7 @@ mac_packages=(
 
 linux_packages=(
   pinentry
+  snap
 )
 
 install_packages() {
