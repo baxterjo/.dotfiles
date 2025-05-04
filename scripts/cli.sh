@@ -1,11 +1,10 @@
 install_rust_tools() {
 
-  if ! command -v rust-analyzer &>/dev/null; then
-    info "Installing rust-analyzer"
-    brew install rust-analyzer
-  fi
 
   rustup default stable
+  rustup-init -y
+
+  source $HOME/.cargo/env
 
   local cargo_packages=(
     'cargo-audit --features=fix'
