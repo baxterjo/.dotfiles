@@ -97,26 +97,40 @@ bootstrap_linux(){
   echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 }
 
-info "########################"
-info "####### dotfiles #######"
-info "########################"
-read -p "Press enter to start:"
-info "Bootstraping..."
+boostrap(){
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    bootstrap_linux
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    bootstrap_mac
+  else
+    echo "${OSTYPE} not supported."
+    exit 1
+  fi
+}
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  bootstrap_linux
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  bootstrap_mac
-else
-  echo "${OSTYPE} not supported."
-  exit 1
+main(){
+  info "########################"
+  info "####### dotfiles #######"
+  info "########################"
+  read -p "Press enter to start:"
+  info "Bootstraping..."
+  boostrap 
+  
+  info "Cloning .dotfiles repo from $REPO_URL at $REPO_BRANCH into $REPO_PATH"
+  git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_PATH"
+  
+  info "Change path to $REPO_PATH"
+  cd "$REPO_PATH" >/dev/null
+  git pull  # This is useful for active testing
+  
+  /bin/bash ./install.sh
+}
+
+# Bash equivalent to `if __name__ == "__main__"` in python
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+  main
+elif [ -z "$1" ]; then
+  $1
 fi
 
-info "Cloning .dotfiles repo from $REPO_URL at $REPO_BRANCH into $REPO_PATH"
-git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_PATH"
 
-info "Change path to $REPO_PATH"
-cd "$REPO_PATH" >/dev/null
-git pull  # This is useful for active testing
-
-/bin/bash ./install.sh
