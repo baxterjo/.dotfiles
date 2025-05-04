@@ -99,11 +99,19 @@ bootstrap_linux(){
 
 bootstrap(){
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    . /etc/os-release
+    
+    # Linux installation requires apt and snap.
+    if [[ "$NAME" != "Ubuntu" ]]; then
+      err "${NAME} is not a supported linux distro"
+      exit 1
+    fi
+
     bootstrap_linux
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     bootstrap_mac
   else
-    echo "${OSTYPE} not supported."
+    err "${OSTYPE} not supported."
     exit 1
   fi
 }
