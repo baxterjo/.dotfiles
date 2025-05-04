@@ -97,7 +97,7 @@ bootstrap_linux(){
   echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 }
 
-boostrap(){
+bootstrap(){
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     bootstrap_linux
   elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -121,16 +121,16 @@ main(){
   
   info "Change path to $REPO_PATH"
   cd "$REPO_PATH" >/dev/null
-  git pull  # This is useful for active testing
   
   /bin/bash ./install.sh
 }
 
-# Bash equivalent to `if __name__ == "__main__"` in python
-if [ "${BASH_SOURCE[0]}" = "$0" ]; then
-  main
-elif [ -z "$1" ]; then
+# If an argument is givent to this script, assume it is a function call.
+if [ -n "$1" ]; then
   $1
+# Bash equivalent to `if __name__ == "__main__"` in python
+elif [ "${BASH_SOURCE[0]}" = "$0" ]; then
+  main
 fi
 
 
