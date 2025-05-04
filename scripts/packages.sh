@@ -1,5 +1,3 @@
-
-
 generic_packages=(
   bat     # https://github.com/sharkdp/bat
   bottom  # https://github.com/ClementTsang/bottom
@@ -27,6 +25,7 @@ generic_packages=(
   protobuf
   ripgrep # https://github.com/BurntSushi/ripgre
   rustup
+  rust-analyzer
   sd # https://github.com/chmln/sd
   shellcheck
   stow

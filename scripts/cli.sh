@@ -5,6 +5,8 @@ install_rust_tools() {
     brew install rust-analyzer
   fi
 
+  rustup default stable
+
   local cargo_packages=(
     'cargo-audit --features=fix'
     cargo-edit
