@@ -5,9 +5,9 @@ set -o errexit
 REPO_URL=https://github.com/baxterjo/.dotfiles.git
 REPO_PATH="$HOME/.dotfiles"
 
-if [ -n "$REPO_BRANCH" ]
+if [ -z "${REPO_BRANCH+x}" ]
 then
-  echo "Branch argument supplied: ${1}"
+  REPO_BRANCH=main
 fi
 
 reset_color=$(tput sgr 0)
@@ -36,35 +36,6 @@ install_xcode() {
     xcode-select --install
     sudo xcodebuild -license accept
   fi
-}
-
-add_homebrew_to_path() {
-  case "${SHELL}" in
-    */bash*)
-      if [[ -n "${HOMEBREW_ON_LINUX-}" ]]
-      then
-        shell_rcfile="${HOME}/.bashrc"
-      else
-        shell_rcfile="${HOME}/.bash_profile"
-      fi
-      ;;
-    */zsh*)
-      if [[ -n "${HOMEBREW_ON_LINUX-}" ]]
-      then
-        shell_rcfile="${ZDOTDIR:-"${HOME}"}/.zshrc"
-      else
-        shell_rcfile="${ZDOTDIR:-"${HOME}"}/.zprofile"
-      fi
-      ;;
-    */fish*)
-      shell_rcfile="${HOME}/.config/fish/config.fish"
-      ;;
-    *)
-      shell_rcfile="${ENV:-"${HOME}/.profile"}"
-      ;;
-  esac
-
-  
 }
 
 install_homebrew() {
