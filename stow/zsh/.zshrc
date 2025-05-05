@@ -25,14 +25,14 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rg"
 export TERM="screen-256color"
 export PATH=$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+source $HOME/.cargo/env
 
+# Common homebrew path initialization
+command -v brew || export PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:$PATH"
+command -v brew && eval "$(brew shellenv)"
 
 # zsh-init
-source /opt/homebrew/opt/zinit/zinit.zsh
+source "${HOMEBREW_PREFIX}/opt/zinit/zinit.zsh"
 
 # plugins
 zinit ice depth=1; zinit light zsh-users/zsh-syntax-highlighting
