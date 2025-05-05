@@ -18,12 +18,18 @@
   program = gpg
 
 [user]
-  name = Jordan Baxter
-	email = jordan.baxter@ditto.live
-	signingkey = CED150A1C5690CB3
+  name = baxterjo
+	email = j.bax080@gmail.com
+  # Signing key is per machine, so it should be in a machine specific file.
 
 [include]
-  path = ~/work/.gitconfig
+  path = ~/.config/git/.gitconfig-local
+
+[includeIf "gitdir:~/projects/commercial/"] # job needs, like workspace/* so all included projects
+  path = ~/.config/git/.gitconfig-work
+
+[includeIf "gitdir:~/projects/federal/"] # job needs, like workspace/* so all included projects
+  path = ~/.config/git/.gitconfig-work
 
 [commit]
   gpgsign = true

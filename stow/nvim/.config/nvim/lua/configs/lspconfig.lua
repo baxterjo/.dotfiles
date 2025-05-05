@@ -9,6 +9,7 @@ local servers = {
   ansiblels = {},
   pyright = {},
   protols = {},
+  bash = {},
 }
 
 -- lsps with default config
