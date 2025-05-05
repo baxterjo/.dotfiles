@@ -79,7 +79,7 @@ install_linux_apps() {
   sudo apt install -y wireshark
   
   # Snap does not like docker for some reason
-  if [ -z $IN_CONTAINER ]; then
+  if [ -z ${IN_CONTAINER+x} ]; then
     sudo snap install postman
   fi
 }
