@@ -11,7 +11,6 @@ generic_packages=(
   ffmpeg
   fzf   # https://github.com/junegunn/fzf
   git-delta # https://github.com/dandavison/delta
-  gpg
   imagemagick
   isort
   jq
@@ -38,13 +37,13 @@ generic_packages=(
 )
 
 mac_packages=(
+  gpg
   pinentry-mac
   mas # https://github.com/mas-cli/mas
   telnet
 )
 
 linux_packages=(
-  pinentry
   snap
 )
 
