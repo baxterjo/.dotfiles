@@ -524,7 +524,7 @@ local config = {
       font = wezterm.font(font, { italic = false, weight = 'Bold' }),
     },
   },
-  font_size =  16.0,
+  font_size = 12.0,
   -- Disable font ligatures
   harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' },
   hide_tab_bar_if_only_one_tab = false,
@@ -580,6 +580,5 @@ local config = {
     inactive_titlebar_bg = colors.background,
   },
 }
-
 
 return config

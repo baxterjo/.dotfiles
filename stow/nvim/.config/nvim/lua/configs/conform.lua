@@ -1,6 +1,7 @@
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
+    sh = { "shfmt" },
     -- Rust formatting is taken car of with rustaceanvim
     -- css = { "prettier" },
     -- html = { "prettier" },

@@ -2,8 +2,12 @@
 
 set -o errexit
 
-REPO_URL=https://github.com/protiumx/.dotfiles.git
+REPO_URL=https://github.com/baxterjo/.dotfiles.git
 REPO_PATH="$HOME/.dotfiles"
+
+if [ -z "${REPO_BRANCH+x}" ]; then
+  REPO_BRANCH=main
+fi
 
 reset_color=$(tput sgr 0)
 
@@ -39,27 +43,69 @@ install_homebrew() {
     info "Installing homebrew..."
     sudo --validate # reset `sudo` timeout to use Homebrew install in noninteractive mode
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
   else
     warn "Homebrew already installed"
   fi
 }
 
-info "########################"
-info "####### dotfiles #######"
-info "########################"
-read -p "Press enter to start:"
-info "Bootstraping..."
+bootstrap_mac() {
+  install_xcode
+  install_homebrew
 
-install_xcode
-install_homebrew
+  info "Installing Git"
+  brew install git
+}
 
-info "Installing Git"
-brew install git
+bootstrap_linux() {
+  sudo apt-get install -y build-essential procps curl file git
+  install_homebrew
 
-info "Cloning .dotfiles repo from $REPO_URL into $REPO_PATH"
-git clone "$REPO_URL" "$REPO_PATH"
+  test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+  test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
+}
 
-info "Change path to $REPO_PATH"
-cd "$REPO_PATH" >/dev/null
+bootstrap() {
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    . /etc/os-release
 
-/bin/bash ./install.sh
+    # Linux installation requires apt and snap.
+    if [[ "$NAME" != "Ubuntu" ]]; then
+      err "${NAME} is not a supported linux distro"
+      exit 1
+    fi
+
+    bootstrap_linux
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    bootstrap_mac
+  else
+    err "${OSTYPE} not supported."
+    exit 1
+  fi
+}
+
+main() {
+  info "########################"
+  info "####### dotfiles #######"
+  info "########################"
+  read -p "Press enter to start:"
+  info "Bootstraping..."
+  boostrap
+
+  info "Cloning .dotfiles repo from $REPO_URL at $REPO_BRANCH into $REPO_PATH"
+  git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_PATH"
+
+  info "Change path to $REPO_PATH"
+  cd "$REPO_PATH" >/dev/null
+
+  /bin/bash ./install.sh
+}
+
+# If an argument is givent to this script, assume it is a function call.
+if [ -n "$1" ]; then
+  $1
+# Bash equivalent to `if __name__ == "__main__"` in python
+elif [ "${BASH_SOURCE[0]}" = "$0" ]; then
+  main
+fi

@@ -1,10 +1,9 @@
 install_rust_tools() {
-  source "$HOME/.cargo/env"
 
-  if ! command -v rust-analyzer &>/dev/null; then
-    info "Installing rust-analyzer"
-    brew install rust-analyzer
-  fi
+  rustup default stable
+  rustup-init -y
+
+  source $HOME/.cargo/env
 
   local cargo_packages=(
     'cargo-audit --features=fix'
@@ -15,8 +14,8 @@ install_rust_tools() {
   )
 
   for p in "${cargo_packages[@]}"; do
-    info "Installing <cargo ${p//[\"\']}>"
-    cargo install ${p//[\"\']}
+    info "Installing <cargo ${p//[\"\']/}>"
+    cargo install ${p//[\"\']/}
   done
 
   local rustup_components=(
@@ -29,4 +28,3 @@ install_rust_tools() {
     rustup component add "$p"
   done
 }
-

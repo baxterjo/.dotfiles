@@ -40,10 +40,10 @@ main() {
   success "Finished installing Oh-my-zsh"
 
   info "################################################################################"
-  info "MacOS Apps"
+  info "Cask Apps"
   info "################################################################################"
   wait_input
-  install_macos_apps
+  install_apps
 
   info "################################################################################"
   info "Rust tools"
@@ -57,8 +57,10 @@ main() {
   info "################################################################################"
   wait_input
 
-  setup_osx
-  success "Finished configuring MacOS defaults. NOTE: A restart is needed"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    setup_osx
+    success "Finished configuring MacOS defaults. NOTE: A restart is needed"
+  fi
 
   stow_dotfiles
   success "Finished stowing dotfiles"
@@ -68,14 +70,6 @@ main() {
   info "################################################################################"
   setup_github_ssh
   success "Finished setting up SSH Key"
-
-  if ! hash rustc &>/dev/null; then
-    info "################################################################################"
-    info "Rustup Setup"
-    info "################################################################################"
-    wait_input
-    rustup-init
-  fi
 
   success "Done"
 

@@ -1,40 +1,34 @@
-
-
-packages=(
-  bat     # https://github.com/sharkdp/bat
-  bottom  # https://github.com/ClementTsang/bottom
-  black   # Python code formatter
+generic_packages=(
+  bat    # https://github.com/sharkdp/bat
+  bottom # https://github.com/ClementTsang/bottom
+  black  # Python code formatter
   buf
-  cmake   # https://cmake.org/
+  cmake # https://cmake.org/
   ctags
   curl
-  eza   # https://github.com/eza-community/eza
-  fd # https://github.com/sharkdp/fd
+  eza # https://github.com/eza-community/eza
+  fd  # https://github.com/sharkdp/fd
   ffmpeg
-  font-meslo-lg-nerd-font
-  fzf   # https://github.com/junegunn/fzf
+  fzf       # https://github.com/junegunn/fzf
   git-delta # https://github.com/dandavison/delta
-  gpg
   imagemagick
   isort
   jq
-  hyperfine  # https://github.com/sharkdp/hyperfine
+  hyperfine # https://github.com/sharkdp/hyperfine
   # lf         # https://github.com/gokcehan/lf
-  llvm 
-  mas # https://github.com/mas-cli/mas
+  llvm
   neovim
   nmap
   openssl
-  pinentry-mac
   python3
   protobuf
   ripgrep # https://github.com/BurntSushi/ripgre
   rustup
+  rust-analyzer
   sd # https://github.com/chmln/sd
   shellcheck
   stow
   stylua
-  telnet
   tmux
   wget
   zsh
@@ -42,10 +36,32 @@ packages=(
   zoxide # https://github.com/ajeetdsouza/zoxide
 )
 
+mac_packages=(
+  gpg
+  pinentry-mac
+  mas # https://github.com/mas-cli/mas
+  telnet
+)
+
+linux_packages=(
+  snap
+)
+
 install_packages() {
 
-  info "Installing packages..."
-  install_brew_formulas "${packages[@]}"
+  info "Installing generic packages..."
+  install_brew_formulas "${generic_packages[@]}"
+
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    info "Installing linux packages..."
+    install_brew_formulas "${linux_packages[@]}"
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    info "Installing mac packages..."
+    install_brew_formulas "${mac_packages[@]}"
+  else
+    echo "${OSTYPE} not supported."
+    exit 1
+  fi
 
   info "Cleaning up brew packages..."
   brew cleanup

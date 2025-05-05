@@ -1,5 +1,5 @@
 setup_github_ssh() {
-  if [ -z "${SSH_PASSPHRASE}" ]; then
+  if [ -z ${SSH_PASSPHRASE+x} ]; then
     echo "SSH_PASSPHRASE not set"
   else
     info "Using $SSH_PASSPHRASE"
