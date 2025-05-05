@@ -4,7 +4,7 @@ install_apps() {
   )
 
   local mac_apps=(
-    betterdisplay         # More control over display settings.
+    betterdisplay # More control over display settings.
     firefox
     google-chrome
     keycastr
@@ -31,7 +31,6 @@ install_apps() {
   fi
 }
 
-
 # These are apps that cannot be installed on linux via homebrew.
 # Always prefer hombrew when adding applications to the apps list
 # Order of priority for installing apps should be:
@@ -46,8 +45,8 @@ install_linux_apps() {
   sudo apt install -y software-properties-common
 
   # Firefox
-  wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-  echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+  wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc >/dev/null
+  echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list >/dev/null
   echo '
   Package: *
   Pin: origin packages.mozilla.org
@@ -66,8 +65,6 @@ install_linux_apps() {
   # Wireshark
   sudo add-apt-repository ppa:wireshark-dev/stable
 
-
-
   # Update apt after adding repositories
   sudo apt update
   sudo apt-get update
@@ -77,7 +74,7 @@ install_linux_apps() {
   sudo apt-get install -y spotify-client
   sudo apt install -y wezterm
   sudo apt install -y wireshark
-  
+
   # Snap does not like docker for some reason
   if [ -z ${IN_CONTAINER+x} ]; then
     sudo snap install postman

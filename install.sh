@@ -38,13 +38,12 @@ main() {
   wait_input
   install_oh_my_zsh
   success "Finished installing Oh-my-zsh"
-  
+
   info "################################################################################"
   info "Cask Apps"
   info "################################################################################"
   wait_input
   install_apps
-
 
   info "################################################################################"
   info "Rust tools"
@@ -59,11 +58,11 @@ main() {
   wait_input
 
   if [[ "$OSTYPE" == "darwin"* ]]; then
-   setup_osx
+    setup_osx
     success "Finished configuring MacOS defaults. NOTE: A restart is needed"
   fi
 
-   stow_dotfiles
+  stow_dotfiles
   success "Finished stowing dotfiles"
 
   info "################################################################################"

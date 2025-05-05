@@ -5,8 +5,7 @@ set -o errexit
 REPO_URL=https://github.com/baxterjo/.dotfiles.git
 REPO_PATH="$HOME/.dotfiles"
 
-if [ -z "${REPO_BRANCH+x}" ]
-then
+if [ -z "${REPO_BRANCH+x}" ]; then
   REPO_BRANCH=main
 fi
 
@@ -58,20 +57,19 @@ bootstrap_mac() {
   brew install git
 }
 
-
-bootstrap_linux(){
+bootstrap_linux() {
   sudo apt-get install -y build-essential procps curl file git
   install_homebrew
 
   test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
   test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
+  echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
 }
 
-bootstrap(){
+bootstrap() {
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     . /etc/os-release
-    
+
     # Linux installation requires apt and snap.
     if [[ "$NAME" != "Ubuntu" ]]; then
       err "${NAME} is not a supported linux distro"
@@ -87,20 +85,20 @@ bootstrap(){
   fi
 }
 
-main(){
+main() {
   info "########################"
   info "####### dotfiles #######"
   info "########################"
   read -p "Press enter to start:"
   info "Bootstraping..."
-  boostrap 
-  
+  boostrap
+
   info "Cloning .dotfiles repo from $REPO_URL at $REPO_BRANCH into $REPO_PATH"
   git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_PATH"
-  
+
   info "Change path to $REPO_PATH"
   cd "$REPO_PATH" >/dev/null
-  
+
   /bin/bash ./install.sh
 }
 
@@ -111,5 +109,3 @@ if [ -n "$1" ]; then
 elif [ "${BASH_SOURCE[0]}" = "$0" ]; then
   main
 fi
-
-

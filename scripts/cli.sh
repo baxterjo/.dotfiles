@@ -1,6 +1,5 @@
 install_rust_tools() {
 
-
   rustup default stable
   rustup-init -y
 
@@ -15,8 +14,8 @@ install_rust_tools() {
   )
 
   for p in "${cargo_packages[@]}"; do
-    info "Installing <cargo ${p//[\"\']}>"
-    cargo install ${p//[\"\']}
+    info "Installing <cargo ${p//[\"\']/}>"
+    cargo install ${p//[\"\']/}
   done
 
   local rustup_components=(
@@ -29,4 +28,3 @@ install_rust_tools() {
     rustup component add "$p"
   done
 }
-

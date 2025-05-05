@@ -1,22 +1,22 @@
 generic_packages=(
-  bat     # https://github.com/sharkdp/bat
-  bottom  # https://github.com/ClementTsang/bottom
-  black   # Python code formatter
+  bat    # https://github.com/sharkdp/bat
+  bottom # https://github.com/ClementTsang/bottom
+  black  # Python code formatter
   buf
-  cmake   # https://cmake.org/
+  cmake # https://cmake.org/
   ctags
   curl
-  eza   # https://github.com/eza-community/eza
-  fd # https://github.com/sharkdp/fd
+  eza # https://github.com/eza-community/eza
+  fd  # https://github.com/sharkdp/fd
   ffmpeg
-  fzf   # https://github.com/junegunn/fzf
+  fzf       # https://github.com/junegunn/fzf
   git-delta # https://github.com/dandavison/delta
   imagemagick
   isort
   jq
-  hyperfine  # https://github.com/sharkdp/hyperfine
+  hyperfine # https://github.com/sharkdp/hyperfine
   # lf         # https://github.com/gokcehan/lf
-  llvm 
+  llvm
   neovim
   nmap
   openssl
