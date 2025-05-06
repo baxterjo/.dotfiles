@@ -17,6 +17,7 @@ generic_packages=(
   hyperfine # https://github.com/sharkdp/hyperfine
   # lf         # https://github.com/gokcehan/lf
   llvm
+  luarocks # https://luarocks.org/
   neovim
   nmap
   openssl
