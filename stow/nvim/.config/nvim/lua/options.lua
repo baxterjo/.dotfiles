@@ -12,41 +12,4 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
 vim.lsp.inlay_hint.enable(true)
 
--- Rustaceanvim Config
-vim.g.rustaceanvim = {
-  -- Plugin configuration
-  tools = {
-
-    on_initiated = function(_, _)
-      -- Flicker inlay hints when rust analyzer is finished initializing
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-    end,
-  },
-  -- LSP configuration
-  server = {
-    on_attach = function(_, bufnr)
-      -- you can also put keymaps in here
-      vim.keymap.set("n", "<leader>ca", function()
-        vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-        -- or vim.lsp.buf.codeAction() if you don't want grouping.
-      end, { silent = true, buffer = bufnr })
-      vim.keymap.set(
-        "n",
-        "K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-        function()
-          vim.cmd.RustLsp({ "hover", "actions" })
-        end,
-        { silent = true, buffer = bufnr }
-      )
-    end,
-    default_settings = {
-      -- rust-analyzer language server configuration
-      ["rust-analyzer"] = {
-        diagnostics = { enable = true },
-      },
-    },
-  },
-  -- DAP configuration
-  dap = {},
-}
+require("configs.language-support").setup_rust()
