@@ -1,11 +1,6 @@
 local options = {
-  formatters_by_ft = {
-    lua = { "stylua" },
-    sh = { "shfmt" },
-    -- Rust formatting is taken car of with rustaceanvim
-    -- css = { "prettier" },
-    -- html = { "prettier" },
-  },
+  -- Formatters should only be added if the language's LSP does not format.
+  formatters_by_ft = {},
 
   format_on_save = {
     -- These options will be passed to conform.format()
