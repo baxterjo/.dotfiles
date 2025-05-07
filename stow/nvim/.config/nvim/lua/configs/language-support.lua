@@ -45,6 +45,7 @@ M.tools = {
     python = { flake8 = {} },
     rst = { vale = {} },
     sh = { shellcheck = {} },
+    zsh = { shellcheck = {} },
     text = { vale = {} },
     yaml = { yamllint = {} },
   },
@@ -99,6 +100,9 @@ function M.lspconfig()
     ansiblels = {},
     pyright = {},
     protols = {},
+    bashls = {
+      filetypes = { "sh", "zsh" },
+    },
   }
 
   -- lsps with default config
