@@ -524,7 +524,7 @@ local config = {
       font = wezterm.font(font, { italic = false, weight = 'Bold' }),
     },
   },
-  font_size = 12.0,
+  font_size = 14.0,
   -- Disable font ligatures
   harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' },
   hide_tab_bar_if_only_one_tab = false,
@@ -560,7 +560,6 @@ local config = {
   send_composed_key_when_left_alt_is_pressed = false,
   set_environment_variables = {
     EDITOR = 'nvim',
-    PATH = '/opt/homebrew/bin:/home/bmayo/.go/current/bin:' .. os.getenv('PATH'),
   },
   show_new_tab_button_in_tab_bar = false,
   -- Nightly only
