@@ -28,8 +28,8 @@ export PATH=$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH
 source $HOME/.cargo/env
 
 # Common homebrew path initialization
-command -v brew || export PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:$PATH"
-command -v brew && eval "$(brew shellenv)"
+command -v brew &> /dev/null || export PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:$PATH"
+command -v brew &> /dev/null && eval "$(brew shellenv)"
 
 # zsh-init
 source "${HOMEBREW_PREFIX}/opt/zinit/zinit.zsh"

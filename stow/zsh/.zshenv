@@ -1,25 +1,33 @@
 #!/usr/bin/env zsh
 
 reload() {
-  source ~/.zshrc
-  source ~/.zshenv
+  source "$HOME/.zshrc"
+  source "$HOME/.zshenv"
 }
 
 jwt-decode() {
-  jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
+  jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<<$1
 }
 
 # Print commits with URLs to github
 ghhist() {
-  local remote="$(git remote -v | awk '/^origin.*\(push\)$/ {print $2}')"
+  local remote
+  remote="$(git remote -v | awk '/^origin.*\(push\)$/ {print $2}')"
   [[ "$remote" ]] || return
-  local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
-  git log $* --name-status --color | awk "$(cat <<AWK
+  local user_repo
+  user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
+  git log "$*" --name-status --color | awk "$(
+    cat <<AWK
     /^.*commit [0-9a-f]{40}/ {sha=substr(\$2,1,7)}
     /^[MA]\t/ {printf "%s\thttps://github.com/$user_repo/blob/%s/%s\n", \$1, sha, \$2; next}
     /.*/ {print \$0}
 AWK
   )" | less -F
+}
+
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
 # NOTE: needs Regexp::Debugger module
@@ -30,15 +38,15 @@ perlrex() {
 
 # Test if HTTP compression (RFC 2616 + SDCH) is enabled for a given URL.
 httpcompression() {
-	encoding="$(curl -LIs -H 'User-Agent: Mozilla/5 Gecko' -H 'Accept-Encoding: gzip,deflate,compress,sdch' "$1" | grep '^Content-Encoding:')" && echo "$1 is encoded using ${encoding#* }" || echo "$1 is not using any encoding"
+  encoding="$(curl -LIs -H 'User-Agent: Mozilla/5 Gecko' -H 'Accept-Encoding: gzip,deflate,compress,sdch' "$1" | grep '^Content-Encoding:')" && echo "$1 is encoded using ${encoding#* }" || echo "$1 is not using any encoding"
 }
 
 # get gzipped size
 gzp() {
-	echo "orig size    (bytes): "
-	wc -c "$1"
-	echo "gzipped size (bytes): "
-	gzip -c "$1" | wc -c
+  echo "orig size    (bytes): "
+  wc -c "$1"
+  echo "gzipped size (bytes): "
+  gzip -c "$1" | wc -c
 }
 
 # Move files fuzzy find destination
@@ -48,11 +56,11 @@ fzmv() {
 
 # Create a new directory and enter it
 md() {
-	mkdir -p "$@" && cd "$@"
+  mkdir -p "$@" && cd "$@"
 }
 
 server() {
-	local port="${1:-8000}"
+  local port="${1:-8000}"
   python3 -m http.server $port
 }
 
@@ -66,12 +74,12 @@ pkgrun() {
 
 # Jump to folder (zoxide) and open nvim.
 zv() {
- z "$1" && nvim .
+  z "$1" && nvim .
 }
 
 # Retrieve process real memory
 psmem() {
-  ps -o rss= -p "$1" | awk '{ hr=$1/1024; printf "%13.2f Mb\n",hr }' | tr -d ' ';
+  ps -o rss= -p "$1" | awk '{ hr=$1/1024; printf "%13.2f Mb\n",hr }' | tr -d ' '
 }
 
 # Parse unix epoch to ISO date
@@ -100,7 +108,7 @@ ijq() {
 groot() {
   root="$(git rev-parse --show-toplevel 2>/dev/null)"
   if [ -n "$root" ]; then
-    cd "$root";
+    cd "$root"
   else
     echo "Not in a git repository"
   fi
@@ -108,8 +116,7 @@ groot() {
 
 # Conventional commits helper
 gcommit() {
-  if [ -z "$3" ]
-  then
+  if [ -z "$3" ]; then
     git commit -m "$1: $2"
   else
     git commit -m "$1($2): $3"
@@ -158,7 +165,7 @@ jsondiff() {
 
 # Trigger pin entry for key $1
 gpg-pin() {
-  echo "sign" | gpg --sign --default-key $GPG_DEFAULT_KEY &> /dev/null
+  echo "sign" | gpg --sign --default-key $GPG_DEFAULT_KEY &>/dev/null
 }
 
 # Fuzzy find kubernetes resource and apply an action
@@ -169,31 +176,31 @@ kf() {
   echo "Using $1 $r"
 
   case $action in
-    log)
-      echo "Fetching logs"
-      klog $1 $r
-      ;;
+  log)
+    echo "Fetching logs"
+    klog $1 $r
+    ;;
 
-    sh)
-      echo "Running exec"
-      kubectl exec -it $r -- sh
-      ;;
+  sh)
+    echo "Running exec"
+    kubectl exec -it $r -- sh
+    ;;
 
-    describe)
-      echo "Kube"
-      kubectl describe $1 $r
-      ;;
+  describe)
+    echo "Kube"
+    kubectl describe $1 $r
+    ;;
 
-    pb)
-      echo -n "$r" | pbcopy
-      echo -e "Copied \e[1;32m\"$r\"\e[0m to clipboard"
-      ;;
+  pb)
+    echo -n "$r" | pbcopy
+    echo -e "Copied \e[1;32m\"$r\"\e[0m to clipboard"
+    ;;
   esac
 }
 
 # Kubernetes follow logs since 1m
 klog() {
-  if  [[ "$1" == "deployment" ]]; then
+  if [[ "$1" == "deployment" ]]; then
     kubectl logs -f --all-containers=true --since=1m "deployments/$2"
   else
     kubectl logs -f --since 1m $2
@@ -269,6 +276,10 @@ rand() {
 
 docker-down() {
   docker stop $(docker ps -a -q)
+}
+
+batail() {
+  tail -f "${1}" | bat --paging=never -l log
 }
 
 # Aliases
