@@ -9,15 +9,16 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
-    opts = {
-      setup = {
-        -- rustaceanvim takes care of rust setup
-        -- This config is in the docs for rustaceanvim
-        rust_analyzer = function()
-          return true
-        end,
-      },
-    },
+    config = function()
+      require("mason-lspconfig").setup({
+        -- rustaceanvim takes care of rust_analyzer setup
+        automatic_enable = {
+          exclude = {
+            "rust_analyzer",
+          },
+        },
+      })
+    end,
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
