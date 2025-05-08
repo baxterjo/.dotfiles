@@ -25,14 +25,24 @@ M.ui = {
       my_lsp = function()
         if rawget(vim, "lsp") then
           -- TODO: Add a client aggregator, (more than one client can be active at a time.)
+          local clients = ""
+          local copilot = false
           for _, client in ipairs(vim.lsp.get_clients()) do
             if
               client.attached_buffers[vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)]
               and client.name ~= "copilot"
             then
-              return (vim.o.columns > 100 and "   LSP ~ " .. client.name .. " ") or "   LSP "
+              if client.name == "copilot" then
+                copilot = true
+              else
+                clients = clients .. " | " .. client.name
+              end
             end
           end
+          if copilot then
+            clients = clients .. "| copilot"
+          end
+          return (vim.o.columns > 100 and "   LSP ~ " .. clients .. " ") or "   LSP "
         end
 
         return "   LSP ~ None "
