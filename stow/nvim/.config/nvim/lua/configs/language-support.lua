@@ -22,13 +22,23 @@ local M = {}
 
 ---@type table<string, table<string, table<string, any>>>
 M.tools = {
+  -- This is the list of all the tools that are used in this config.
+  -- The general rule for adding new language support is this:
+  -- - First add an LSP
+  -- - Check if the LSP has diagnostics and formatting.
+  -- - If the diagnostics are lacking or if there is no LSP for the language
+  --   install a linter.
+  -- - If there is no formatting install a formatter.
+
   -- LSPs are run by nvim-lspconfig
   lsp = {
+    -- ["*"] = { harper_ls = {} },
     ansible = { ansiblels = {} },
     json = { jsonls = {} },
+    lua = { lua_ls = {} },
     markdown = { marksman = {} },
     proto = { protols = {} },
-    python = { pyright = {} },
+    python = { basedpyright = {}, ruff = {} },
     -- Rust LSP is handled by rustaceanvim
     sh = { bashls = {} },
     toml = { taplo = {} },
@@ -37,30 +47,20 @@ M.tools = {
   dap = {},
   -- Linters are run by nvim lint
   linter = {
-    ["*"] = { cspell = {} },
-    json = { jsonlint = {} },
-    lua = { luacheck = {} },
-    markdown = { markdownlint = {}, vale = {} },
     make = { checkmake = {} },
-    python = { flake8 = {} },
     rst = { vale = {} },
-    sh = { shellcheck = {} },
-    zsh = { shellcheck = {} },
     text = { vale = {} },
-    yaml = { yamllint = {} },
   },
   -- Formatters are run by conform
   formatter = {
-    lua = { stylua = {} },
-    python = { black = {} },
     -- Rust formatting is handled by rustaceanvim
   },
 }
 
 function M.mason_tools()
   local out = {}
-  for _, by_ft in pairs(M.tools) do
-    for _, tools in pairs(by_ft) do
+  for _, ft in pairs(M.tools) do
+    for _, tools in pairs(ft) do
       for tool, _ in pairs(tools) do
         if not out[tool] then
           table.insert(out, tool)
@@ -69,6 +69,18 @@ function M.mason_tools()
     end
   end
   out = remove_dupes(out)
+  return out
+end
+
+function M.lsp_servers()
+  local out = {}
+  for _, tools in pairs(M.tools.lsp) do
+    for tool, settings in pairs(tools) do
+      if not out[tool] then
+        out[tool] = settings
+      end
+    end
+  end
   return out
 end
 
@@ -95,23 +107,61 @@ function M.lspconfig()
 
   --EXAMPLE
   -- Rust analyzer is setup by rustaceanvim.
-  local servers = {
-    marksman = {},
-    ansiblels = {},
-    pyright = {},
-    protols = {},
-    bashls = {
-      filetypes = { "sh", "zsh" },
-    },
-  }
+  local servers = M.lsp_servers()
 
   -- lsps with default config
   for name, opts in pairs(servers) do
+    if name == "lua_ls" then
+      goto continue
+    end
     opts.on_attach = nvlsp.on_attach
     opts.on_init = nvlsp.on_init
     opts.capabilities = nvlsp.capabilities
     require("lspconfig")[name].setup(opts)
+
+    ::continue::
   end
+end
+
+function M.setup_rust()
+  -- Rustaceanvim Config
+  vim.g.rustaceanvim = {
+    -- Plugin configuration
+    tools = {
+
+      on_initiated = function(_, _)
+        -- Flicker inlay hints when rust analyzer is finished initializing
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end,
+    },
+    -- LSP configuration
+    server = {
+      on_attach = function(_, bufnr)
+        -- you can also put keymaps in here
+        vim.keymap.set("n", "<leader>ca", function()
+          vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+          -- or vim.lsp.buf.codeAction() if you don't want grouping.
+        end, { silent = true, buffer = bufnr })
+        vim.keymap.set(
+          "n",
+          "K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+          function()
+            vim.cmd.RustLsp({ "hover", "actions" })
+          end,
+          { silent = true, buffer = bufnr }
+        )
+      end,
+      default_settings = {
+        -- rust-analyzer language server configuration
+        ["rust-analyzer"] = {
+          diagnostics = { enable = true },
+        },
+      },
+    },
+    -- DAP configuration
+    dap = {},
+  }
 end
 
 return M
