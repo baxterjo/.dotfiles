@@ -1,3 +1,6 @@
+---Removes duplicates from a table.
+---@param tab table<string>
+---@return table<string>
 local function remove_dupes(tab)
   local set = {}
   local finalTab = {}
@@ -81,6 +84,17 @@ function M.lsp_servers()
       end
     end
   end
+  return out
+end
+
+function M.lsp_tools()
+  local lsps = M.lsp_servers()
+  local out = {}
+  for tool, _ in pairs(lsps) do
+    table.insert(out, tool)
+  end
+
+  out = remove_dupes(out)
   return out
 end
 

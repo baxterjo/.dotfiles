@@ -13,7 +13,7 @@ return {
       require("mason-lspconfig").setup({
         -- rustaceanvim takes care of rust_analyzer setup
         automatic_enable = false,
-        ensure_installed = require("configs.language-support").mason_tools(),
+        ensure_installed = require("configs.language-support").lsp_tools(),
       })
     end,
   },
