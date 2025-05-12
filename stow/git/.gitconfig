@@ -21,15 +21,13 @@
   name = baxterjo
 	email = j.bax080@gmail.com
   # Signing key is per machine, so it should be in a machine specific file.
-
+  
+  # TODO: GPG keys are tied to a specific email. So swizzling the keys with
+  # emails will result in an unverified commit in GH. Will either have to 
+  # use work emails for all commits on work machine or generate seperate
+  # GPG key for work and personal. Right now it is the former. 
 [include]
   path = ~/.config/git/.gitconfig-local
-
-[includeIf "gitdir:~/projects/commercial/"] # job needs, like workspace/* so all included projects
-  path = ~/.config/git/.gitconfig-work
-
-[includeIf "gitdir:~/projects/federal/"] # job needs, like workspace/* so all included projects
-  path = ~/.config/git/.gitconfig-work
 
 [commit]
   gpgsign = true
