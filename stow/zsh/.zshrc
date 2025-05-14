@@ -206,3 +206,10 @@ echo "( .-.)"
 source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+if test -f "$HOME/.zlocal"; then
+  source "$HOME/.zlocal"
+else
+  echo "Make a ~/.zlocal file for machine specific configs."
+fi
+
