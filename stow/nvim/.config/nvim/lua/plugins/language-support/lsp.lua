@@ -2,9 +2,6 @@ return {
   -- Mason is in the NV Chad default config.
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      require("configs.language-support").lspconfig()
-    end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -13,7 +10,12 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         -- rustaceanvim takes care of rust_analyzer setup
-        automatic_enable = false,
+        automatic_enable = {
+          -- This ensures that LSPs that have specific configs and automatic
+          -- installation are not double instantiated. But LSPs that are
+          -- installed manually via mason will start without config.
+          exclude = require("configs.language-support").lsps(),
+        },
         ensure_installed = require("configs.language-support").lsps(),
       })
     end,

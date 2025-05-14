@@ -17,4 +17,5 @@ return {
       require("copilot").setup({})
     end,
   },
+  { "echasnovski/mini.surround", version = "*" },
 }

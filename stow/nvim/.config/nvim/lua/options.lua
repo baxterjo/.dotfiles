@@ -12,4 +12,11 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
 vim.lsp.inlay_hint.enable(true)
 
+vim.filetype.add({
+  filename = {
+    [".mdx"] = "mdx",
+  },
+})
+
+require("configs.language-support").config_lsp()
 require("configs.language-support").setup_rust()

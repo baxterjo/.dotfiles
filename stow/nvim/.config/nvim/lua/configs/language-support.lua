@@ -45,7 +45,7 @@ M.tools = {
     -- Rust LSP is handled by rustaceanvim
     sh = { bashls = {} },
     toml = { taplo = {} },
-    yaml = { yamlls = {} },
+    yaml = { yamlls = {}, gh_actions_ls = { init_options = { sessionToken = "" } } },
   },
   dap = {},
   -- Linters are run by nvim lint
@@ -120,7 +120,7 @@ function M.linters_by_ft()
   return out
 end
 
-function M.lspconfig()
+function M.config_lsp()
   -- load defaults i.e lua_lsp
   require("nvchad.configs.lspconfig").defaults()
   local nvlsp = require("nvchad.configs.lspconfig")
@@ -138,8 +138,8 @@ function M.lspconfig()
     opts.on_attach = nvlsp.on_attach
     opts.on_init = nvlsp.on_init
     opts.capabilities = nvlsp.capabilities
-    require("lspconfig")[name].setup(opts)
-
+    vim.lsp.enable(name)
+    vim.lsp.config(name, opts)
     ::continue::
   end
 end
