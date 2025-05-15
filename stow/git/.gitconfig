@@ -59,7 +59,6 @@
   # Stash and pop uncommitted changes on rebase
   autostash = true
   autosquash = true
-  updateRefs = true
 
 # Maintain a 1-1 mapping to upstream refs and tags
 [fetch]
