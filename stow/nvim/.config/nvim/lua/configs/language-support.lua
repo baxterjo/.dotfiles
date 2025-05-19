@@ -45,7 +45,13 @@ M.tools = {
     -- Rust LSP is handled by rustaceanvim
     sh = { bashls = {} },
     toml = { taplo = {} },
-    yaml = { yamlls = {}, gh_actions_ls = { init_options = { sessionToken = "" } } },
+    yaml = {
+      yamlls = {},
+      gh_actions_ls = {
+        filetypes = { "yaml.github" },
+        init_options = { sessionToken = "" },
+      },
+    },
   },
   dap = {},
   -- Linters are run by nvim lint
