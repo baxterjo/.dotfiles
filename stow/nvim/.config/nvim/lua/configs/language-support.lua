@@ -21,6 +21,19 @@ local function remove_dupes(tab)
   return finalTab
 end
 
+---Checks to see if a table contains a value
+---@param table table<string>
+---@param value string
+---@return boolean
+local function tableContains(table, value)
+  for _, item in ipairs(table) do
+    if item == value then
+      return true
+    end
+  end
+  return false
+end
+
 local M = {}
 
 ---@type table<string, table<string, table<string, any>>>
@@ -42,6 +55,7 @@ M.tools = {
     markdown = { marksman = {} },
     proto = { protols = {} },
     python = { basedpyright = {}, ruff = {} },
+    rust = { rust_analyzer = {} },
     -- Rust LSP is handled by rustaceanvim
     sh = { bashls = {} },
     toml = { taplo = {} },
@@ -137,8 +151,10 @@ function M.config_lsp()
 
   -- lsps with default config
   for name, opts in pairs(servers) do
-    -- lua_ls is set up by nvchad.
-    if name == "lua_ls" then
+    -- Skip LSPs that are setup by other services.
+    -- lua_ls is setup by nvchad
+    -- rust_analyzer is set up by rustaceanvim
+    if tableContains({ "lua_ls", "rust_analyzer" }, name) then
       goto continue
     end
     opts.on_attach = nvlsp.on_attach
@@ -178,6 +194,18 @@ function M.setup_rust()
           end,
           { silent = true, buffer = bufnr }
         )
+      end,
+      cmd = function()
+        local mason_registry = require("mason-registry")
+        if mason_registry.is_installed("rust-analyzer") then
+          -- This may need to be tweaked depending on the operating system.
+          local ra = vim.fn.expand("$MASON/bin/rust-analyzer") or "rust-analyzer"
+          -- vim.print("Using RA " .. ra)
+          return { ra }
+        else
+          -- global installation
+          return { "rust-analyzer" }
+        end
       end,
       default_settings = {
         -- rust-analyzer language server configuration
