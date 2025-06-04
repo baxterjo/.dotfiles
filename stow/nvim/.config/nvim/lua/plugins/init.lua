@@ -10,6 +10,13 @@ return {
     lazy = false,
   },
   {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*",
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp",
+  },
+  {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
