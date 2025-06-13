@@ -42,8 +42,8 @@ zinit ice depth=1; zinit light Aloxaf/fzf-tab
 zinit ice depth"1" # git clone depth
 zinit light romkatv/powerlevel10k
 
-# completions
-autoload -Uz compinit && compinit
+# # completions
+autoload -Uz compinit && compinit -u
 
 set completion-ignore-case on
 set match-hidden-files off # do not autocomplete hidden files unless the pattern explicitly begins with a dot
