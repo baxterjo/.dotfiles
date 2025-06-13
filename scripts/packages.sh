@@ -6,9 +6,10 @@ generic_packages=(
   cmake # https://cmake.org/
   ctags
   curl
-  eza # https://github.com/eza-community/eza
-  fd  # https://github.com/sharkdp/fd
-  ffmpeg
+  eza       # https://github.com/eza-community/eza
+  fd        # https://github.com/sharkdp/fd
+  ffmpeg    # https://ffmpeg.org/ - Media manipulator
+  figlet    # http://www.figlet.org/ - Normal text to ascii art
   fzf       # https://github.com/junegunn/fzf
   git-delta # https://github.com/dandavison/delta
   imagemagick
