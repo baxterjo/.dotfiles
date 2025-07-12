@@ -16,13 +16,5 @@ return {
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
   },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({})
-    end,
-  },
   { "echasnovski/mini.surround", version = "*" },
 }

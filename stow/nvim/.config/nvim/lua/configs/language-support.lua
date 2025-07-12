@@ -50,6 +50,7 @@ M.tools = {
   lsp = {
     -- ["*"] = { harper_ls = {} },
     ansible = { ansiblels = {} },
+    gdscript = { gdscript = {} },
     json = { jsonls = {} },
     lua = { lua_ls = {} },
     markdown = { marksman = {} },
@@ -172,7 +173,7 @@ function M.setup_rust()
     -- Plugin configuration
     tools = {
 
-      on_initiated = function(_, _)
+      on_initialized = function(_, _)
         -- Flicker inlay hints when rust analyzer is finished initializing
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
@@ -195,6 +196,7 @@ function M.setup_rust()
           { silent = true, buffer = bufnr }
         )
       end,
+
       cmd = function()
         local mason_registry = require("mason-registry")
         if mason_registry.is_installed("rust-analyzer") then
@@ -213,6 +215,7 @@ function M.setup_rust()
           diagnostics = { enable = true },
         },
       },
+      load_vscode_settings = true,
     },
     -- DAP configuration
     dap = {},
