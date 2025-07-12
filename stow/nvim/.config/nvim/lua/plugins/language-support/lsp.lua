@@ -16,7 +16,7 @@ return {
           -- installed manually via mason will start without config.
           exclude = require("configs.language-support").lsps(),
         },
-        ensure_installed = require("configs.language-support").lsps(),
+        ensure_installed = require("configs.language-support").ensure_installed(),
       })
     end,
   },

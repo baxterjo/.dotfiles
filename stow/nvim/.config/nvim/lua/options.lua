@@ -29,3 +29,10 @@ vim.filetype.add({
 
 require("configs.language-support").config_lsp()
 require("configs.language-support").setup_rust()
+
+--
+local project_file = vim.fn.getcwd() .. "/project.godot"
+if vim.uv.fs_stat(project_file) then
+  print("Godot project detected, starting server")
+  vim.fn.serverstart("./godothost")
+end

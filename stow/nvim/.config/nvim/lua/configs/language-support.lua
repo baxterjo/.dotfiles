@@ -125,6 +125,21 @@ function M.lsps()
   return out
 end
 
+---Returns a table of the names of all of the LSPs in M.tools
+---@return table<string>
+function M.ensure_installed()
+  local lsps = M.lsps()
+  local out = {}
+  for _, tool in pairs(lsps) do
+    if not tableContains({ "gdscript" }, tool) then
+      table.insert(out, tool)
+    end
+  end
+
+  out = remove_dupes(out)
+  return out
+end
+
 function M.linters_by_ft()
   -- All this just to remove the "*" from the tools list
   local out = {}
