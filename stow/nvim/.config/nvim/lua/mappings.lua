@@ -11,6 +11,8 @@ map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Git Neogit Open" })
 map("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git Neogit Commit" })
 map("n", "<leader>gp", "<cmd>Neogit push<cr>", { desc = "Git Neogit Push" })
 
+map("n", "<leader>dd", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
+
 map("i", "<C-i>", function()
   require("copilot.suggestion").toggle_auto_trigger()
 end, {
@@ -22,4 +24,6 @@ map("n", "<leader>ti", function()
 end, { desc = "Toggle inlay hints" })
 
 vim.keymap.del("n", "<leader>h")
+
+require("configs.dap").keymap()
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")

@@ -30,9 +30,41 @@ vim.filetype.add({
 require("configs.language-support").config_lsp()
 require("configs.language-support").setup_rust()
 
---
-local project_file = vim.fn.getcwd() .. "/project.godot"
-if vim.uv.fs_stat(project_file) then
-  print("Godot project detected, starting server")
-  vim.fn.serverstart("./godothost")
+-- paths to check for project.godot file
+local paths_to_check = { "/", "/../" }
+local is_godot_project = false
+local godot_project_path = ""
+local cwd = vim.fn.getcwd()
+
+-- iterate over paths and check
+for _, value in pairs(paths_to_check) do
+  if vim.uv.fs_stat(cwd .. value .. "project.godot") then
+    is_godot_project = true
+    godot_project_path = cwd .. value
+    break
+  end
+end
+
+-- check if server is already running in godot project path
+local is_server_running = vim.uv.fs_stat(godot_project_path .. "server.pipe")
+-- start server, if not already running
+if is_godot_project then
+  if not is_server_running then
+    vim.fn.serverstart(godot_project_path .. "server.pipe")
+  end
+  local dap = require("dap")
+  dap.adapters.godot = {
+    type = "server",
+    host = "127.0.0.1",
+    port = 6006,
+  }
+  dap.configurations.gdscript = {
+    {
+      type = "godot",
+      request = "launch",
+      name = "Launch scene",
+      project = "${workspaceFolder}",
+      launch_scene = true,
+    },
+  }
 end
