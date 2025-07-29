@@ -46,7 +46,7 @@ stow_dotfiles() {
   local to_stow="$(find stow -maxdepth 1 -type d -mindepth 1 | awk -F "/" '{print $NF}' ORS=' ')"
   local to_stow=${to_stow%?} # remove trailing space
   info "Stowing: $to_stow"
-  stow -d stow --verbose 1 --target ${HOME} ${to_stow}
+  stow -d stow --verbose 1 --target "${HOME}" "${to_stow}"
 
   # set permissions
   chmod a+x ~/.config/git/templates/hooks/pre-commit
