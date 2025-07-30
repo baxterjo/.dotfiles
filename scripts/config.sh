@@ -1,3 +1,23 @@
+FILES=(
+  ".aliases"
+  ".gitconfig"
+  ".jq"
+  ".profile*"
+  ".tmux.conf"
+  ".zshrc"
+  ".zshenv"
+  ".p10k.zsh"
+)
+FOLDERS=(
+  ".config/fd"
+  ".config/git"
+  ".config/lf"
+  ".config/nvim"
+  ".config/ripgrep"
+  ".config/vim"
+  ".config/wezterm"
+)
+
 setup_github_ssh() {
   if [ -z ${SSH_PASSPHRASE+x} ]; then
     echo "SSH_PASSPHRASE not set"
@@ -13,31 +33,14 @@ setup_github_ssh() {
 }
 
 stow_dotfiles() {
-  local files=(
-    ".aliases"
-    ".gitconfig"
-    ".jq"
-    ".profile*"
-    ".vimrc"
-    ".zshrc"
-    ".zshenv"
-  )
-  local folders=(
-    ".config/fd"
-    ".config/git"
-    ".config/lf"
-    ".config/nvim"
-    ".config/ripgrep"
-    ".config/vim"
-    ".config/wezterm"
-  )
+
   info "Removing existing config files"
-  for f in "${files[@]}"; do
+  for f in "${FILES[@]}"; do
     rm -f "$HOME/$f" || true
   done
 
   # Create the folders to avoid symlinking folders
-  for d in "${folders[@]}"; do
+  for d in "${FOLDERS[@]}"; do
     rm -rf "${HOME:?}/$d" || true
     mkdir -p "$HOME/$d"
   done

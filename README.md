@@ -9,7 +9,7 @@
 [![shellcheck](https://github.com/protiumx/.dotfiles/actions/workflows/shell.yml/badge.svg)](https://github.com/baxterjo/.dotfiles/actions/workflows/shell.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-My dotfiles to set up a dev environment in a **MacOS** machine.
+My dotfiles to set up a dev environment in a **MacOS** or **Ubuntu** machine.
 Summary:
 - Installs all the packages and apps I use
 - [stows](https://www.gnu.org/software/stow/) all config files
@@ -17,7 +17,7 @@ Summary:
 
 ## Apps
 Main apps:
-- Terminal: [Wezterm](https://wezfurlong.org/wezterm/)
+- Terminal: [Wezterm](https://wezfurlong.org/wezterm/) and [tmux](https://github.com/tmux/tmux)
 - Text Editor: [neovim](https://neovim.io/)
 - Browser: Firefox
 
@@ -44,11 +44,18 @@ CLIs from other sources like `cargo` are listed in [cli](./scripts/cli.sh) scrip
 > [!WARNING]
 > Please review the scripts and packages that are installed and settings before running the install script
 
-Run the `dotfiles` script:
+For a full installation, run the `dotfiles` script:
 ```sh
 curl -sO https://raw.githubusercontent.com/baxterjo/.dotfiles/main/dotfiles
 ```
+To install only config:
 
+1. Clone this repository
+2. CD into the repository
+3. Run
+```sh
+stow -d stow --verbose 1 --target "${HOME}" "to_stow"
+```
 ## Reusing
 
 In order to reuse these scripts, here a summary of files you can change/adapt to your needs:
