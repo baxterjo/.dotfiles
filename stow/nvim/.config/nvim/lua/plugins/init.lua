@@ -26,4 +26,8 @@ return {
       require("claude-code").setup()
     end,
   },
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  },
 }

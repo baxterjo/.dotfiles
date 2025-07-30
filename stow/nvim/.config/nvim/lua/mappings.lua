@@ -13,6 +13,11 @@ map("n", "<leader>gp", "<cmd>Neogit push<cr>", { desc = "Git Neogit Push" })
 
 map("n", "<leader>dd", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
+map("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>", { desc = "Window Left" })
+map("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>", { desc = "Window Left" })
+map("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>", { desc = "Window Left" })
+map("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>", { desc = "Window Left" })
+
 map("i", "<C-i>", function()
   require("copilot.suggestion").toggle_auto_trigger()
 end, {
