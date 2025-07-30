@@ -13,7 +13,6 @@ fi
 : "$LC_CTYPE:=\"en_US.UTF-8\""
 : "$LC_ALL:=\"en_US.UTF-8\""
 
-# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
 export GPG_TTY=$(tty)
@@ -22,7 +21,7 @@ export HOMEBREW_NO_INSECURE_REDIRECT=1
 export LANG LANGUAGE LC_CTYPE LC_ALL
 export MANPAGER='nvim +Man!'
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rg"
-export TERM="screen-256color"
+# export TERM="screen-256color"
 export PATH=$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:$PATH
 
 source $HOME/.cargo/env
@@ -201,7 +200,6 @@ bindkey '^o' zsh-ctrl-o
 # Add aliases to completion
 compdef g='git'
 
-echo "( .-.)"
 
 source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
