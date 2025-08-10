@@ -193,6 +193,7 @@ function M.setup_rust()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
       end,
+      enable_clippy = false,
     },
     -- LSP configuration
     server = {
