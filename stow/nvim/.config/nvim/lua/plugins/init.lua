@@ -30,4 +30,13 @@ return {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
+  -- Used for parsing vscode's dialect of json (with comments)
+  {
+    "Joakker/lua-json5",
+    build = "./install.sh",
+    config = function()
+      require("json5")
+    end,
+    lazy = false,
+  },
 }
