@@ -158,11 +158,9 @@ end
 
 function M.config_lsp()
   -- load defaults i.e lua_lsp
-  require("nvchad.configs.lspconfig").defaults()
   local nvlsp = require("nvchad.configs.lspconfig")
+  nvlsp.defaults()
 
-  --EXAMPLE
-  -- Rust analyzer is setup by rustaceanvim.
   local servers = M.lsp_configs()
 
   -- lsps with default config
@@ -176,8 +174,8 @@ function M.config_lsp()
     opts.on_attach = nvlsp.on_attach
     opts.on_init = nvlsp.on_init
     opts.capabilities = nvlsp.capabilities
-    vim.lsp.enable(name)
     vim.lsp.config(name, opts)
+    vim.lsp.enable(name)
     ::continue::
   end
 end

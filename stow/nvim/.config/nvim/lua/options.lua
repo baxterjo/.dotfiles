@@ -18,8 +18,8 @@ vim.cmd("set splitright")
 vim.lsp.inlay_hint.enable(true)
 
 vim.filetype.add({
-  filename = {
-    [".mdx"] = "mdx",
+  extension = {
+    mdx = "mdx",
   },
 
   pattern = {

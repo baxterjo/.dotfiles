@@ -1,10 +1,8 @@
 return {
   -- Mason is in the NV Chad default config.
   {
-    "neovim/nvim-lspconfig",
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
+
+    "mason-org/mason-lspconfig.nvim",
     lazy = false,
 
     config = function()
