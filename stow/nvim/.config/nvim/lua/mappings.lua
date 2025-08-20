@@ -10,6 +10,7 @@ map(
   ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
   { desc = "telescope live grep with args" }
 )
+map("n", "<leader>rr", ":Telescope resume<CR>", { desc = "Telescope Resume previous picker" })
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
