@@ -26,12 +26,6 @@ map("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>", { desc = "Window Down" })
 map("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>", { desc = "Window Up" })
 map("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>", { desc = "Window Right" })
 
-map("i", "<C-i>", function()
-  require("copilot.suggestion").toggle_auto_trigger()
-end, {
-  desc = "Copilot toggle",
-})
-
 map("n", "<leader>ti", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })
