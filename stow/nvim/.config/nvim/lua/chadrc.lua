@@ -20,18 +20,7 @@ M.ui = {
   statusline = {
     theme = "default",
     separator_style = "default",
-    order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "my_lsp", "cwd", "cursor" },
-    modules = {
-      my_lsp = function()
-        local clients = ""
-
-        if clients ~= "" then
-          return (vim.o.columns > 100 and "   LSP ~ " .. string.sub(clients, 3) .. " ") or "   LSP "
-        else
-          return "   LSP ~ None "
-        end
-      end,
-    },
+    order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "cursor" },
   },
 }
 
