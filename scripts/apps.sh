@@ -9,9 +9,9 @@ install_apps() {
     google-chrome
     keycastr
     postman
-    spotify
     unnaturalscrollwheels # Reverse scrolling for scroll wheels vs track pads.
-    wezterm               # https://wezfurlong.org/wezterm
+    tidal
+    wezterm # https://wezfurlong.org/wezterm
     wireshark
   )
 
