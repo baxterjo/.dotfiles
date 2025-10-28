@@ -1,19 +1,13 @@
 #!/usr/bin/env zsh
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
+zmodload zsh/zprof
 
 : "$LANG:=\"en_US.UTF-8\""
 : "$LANGUAGE:=\"en\""
 : "$LC_CTYPE:=\"en_US.UTF-8\""
 : "$LC_ALL:=\"en_US.UTF-8\""
 
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
 export GPG_TTY=$(tty)
 export HOMEBREW_NO_ANALYTICS=1
@@ -34,12 +28,11 @@ command -v brew &> /dev/null && eval "$(brew shellenv)"
 source "${HOMEBREW_PREFIX}/opt/zinit/zinit.zsh"
 
 # plugins
-zinit ice depth=1; zinit light zsh-users/zsh-syntax-highlighting
-zinit ice depth=1; zinit light zsh-users/zsh-autosuggestions
-zinit ice depth=1; zinit light Aloxaf/fzf-tab
+zinit ice depth=1 wait; zinit light zsh-users/zsh-syntax-highlighting
+zinit ice depth=1 wait; zinit light zsh-users/zsh-autosuggestions
+zinit ice depth=1 wait; zinit light Aloxaf/fzf-tab
 
-zinit ice depth"1" # git clone depth
-zinit light romkatv/powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # # completions
 autoload -Uz compinit && compinit -u
@@ -201,7 +194,6 @@ bindkey '^o' zsh-ctrl-o
 compdef g='git'
 
 
-source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -210,4 +202,6 @@ if test -f "$HOME/.zlocal"; then
 else
   echo "Make a ~/.zlocal file for machine specific configs."
 fi
+
+zprof
 
