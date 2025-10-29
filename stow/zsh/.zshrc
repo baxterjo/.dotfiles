@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 
-zmodload zsh/zprof
+profile=${ZSH_PROFILE:-0}
+
+if [[ "$profile" != "0" ]]; then
+  zmodload zsh/zprof
+fi
 
 : "$LANG:=\"en_US.UTF-8\""
 : "$LANGUAGE:=\"en\""
@@ -28,9 +32,9 @@ command -v brew &> /dev/null && eval "$(brew shellenv)"
 source "${HOMEBREW_PREFIX}/opt/zinit/zinit.zsh"
 
 # plugins
-zinit ice depth=1 wait; zinit light zsh-users/zsh-syntax-highlighting
-zinit ice depth=1 wait; zinit light zsh-users/zsh-autosuggestions
-zinit ice depth=1 wait; zinit light Aloxaf/fzf-tab
+zinit ice depth=1; zinit light zsh-users/zsh-syntax-highlighting
+zinit ice depth=1; zinit light zsh-users/zsh-autosuggestions
+zinit ice depth=1; zinit light Aloxaf/fzf-tab
 
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
@@ -51,6 +55,19 @@ HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help:* -h:* help:* -v:* --version:
 HISTDUP=erase
 WORDCHARS="*?[]~&;!#$%^(){}<>" # allows to stop deletion on ./-_=
 
+# List directory contents
+alias lsa='ls -lah'
+alias l='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE='100' # limit suggestion to 100 chars
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
+
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)
+
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -69,20 +86,6 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
 
-# List directory contents
-alias lsa='ls -lah'
-alias l='ls -lah'
-alias ll='ls -lh'
-alias la='ls -lAh'
-
-
-
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE='100' # limit suggestion to 100 chars
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
-
-eval "$(zoxide init zsh)"
-source <(fzf --zsh)
 
 bindkey "^U" backward-kill-line # [Ctrl-u] deletes everything to the left of the cursor
 bindkey '^[[3;3~' kill-word     # [Alt-del] delete word forwards
@@ -203,5 +206,8 @@ else
   echo "Make a ~/.zlocal file for machine specific configs."
 fi
 
-zprof
+if [[ "$profile" != "0" ]]; then
+  zprof
+  unset ZSH_PROFILE
+fi
 

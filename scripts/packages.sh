@@ -33,7 +33,6 @@ generic_packages=(
   stylua
   tmux
   wget
-  zsh
   zinit  # https://github.com/zdharma-continuum/zinit
   zoxide # https://github.com/ajeetdsouza/zoxide
 )
@@ -47,6 +46,7 @@ mac_packages=(
 
 linux_packages=(
   snap
+  zsh
 )
 
 install_packages() {
