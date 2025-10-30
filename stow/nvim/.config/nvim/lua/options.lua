@@ -30,6 +30,14 @@ vim.filetype.add({
 require("configs.language-support").config_lsp()
 require("configs.language-support").setup_rust()
 
+-- Disable autoformat for toml files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "toml" },
+  callback = function()
+    vim.b.autoformat = false
+  end,
+})
+
 -- paths to check for project.godot file
 local paths_to_check = { "/", "/../" }
 local is_godot_project = false
