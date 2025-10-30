@@ -67,4 +67,5 @@ return {
       extensions_list = { "themes", "terms", "live_grep_args" },
     },
   },
+  { import = "nvchad.blink.lazyspec" },
 }
