@@ -9,7 +9,7 @@ return {
     },
     config = function()
       require("neogit").setup({
-        kind = "floating",
+        -- kind = "floating", Need to use default kind until https://github.com/NeogitOrg/neogit/issues/1859 is fixed.
         integrations = {
           telescope = true,
           diffview = true,

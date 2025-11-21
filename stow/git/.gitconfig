@@ -131,10 +131,14 @@
 
   last = log -1 HEAD --stat
 
+  # Compact single-line log with graph: hash (blue) - relative date (green) message - author (dim) refs
   lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+  # Detailed two-line log with graph: hash - absolute date (relative date) refs / indented message - author
   lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+  # Default log alias (uses compact format)
   lg = lg1
 
+  # Simple single-line log without graph: hash (red) refs (yellow) message relative date (green) - committer (magenta)
   lp = log --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset - %C(magenta)%cn%Creset' --abbrev-commit --date=relative
 
   main = !git checkout main && git pull
