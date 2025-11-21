@@ -17,9 +17,15 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
 vim.lsp.inlay_hint.enable(true)
 
+-- Add custom filetypes
 vim.filetype.add({
   extension = {
     mdx = "mdx",
+    env = "dotenv",
+  },
+
+  filename = {
+    [".env"] = "dotenv",
   },
 
   pattern = {
@@ -28,6 +34,8 @@ vim.filetype.add({
   },
 })
 
+-- Registers dotenv files to be highlighted using bash syntax highlighting.
+vim.treesitter.language.register("bash", "dotenv")
 require("configs.language-support").config_lsp()
 require("configs.language-support").setup_rust()
 

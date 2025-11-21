@@ -71,32 +71,13 @@ M.tools = {
   dap = {},
   -- Linters are run by nvim lint
   linter = {
-    make = { checkmake = {} },
-    rst = { vale = {} },
-    text = { vale = {} },
+    dotenv = { dotenv_linter = {} },
   },
   -- Formatters are run by conform
   formatter = {
     -- Rust formatting is handled by rustaceanvim
   },
 }
-
----Returns a table of all mason tools. (LSP clients, linters, and formatters)
----@return table<string>
-function M.mason_tools()
-  local out = {}
-  for _, ft in pairs(M.tools) do
-    for _, tools in pairs(ft) do
-      for tool, _ in pairs(tools) do
-        if not out[tool] then
-          table.insert(out, tool)
-        end
-      end
-    end
-  end
-  out = remove_dupes(out)
-  return out
-end
 
 ---Returns a list of all LSP servers and their settings from M.tools
 ---@return table<string, table<any>>
@@ -125,28 +106,44 @@ function M.lsps()
   return out
 end
 
+---Returns a table of the names of all of the linters in M.tools
+---@return table<string>
+function M.linters()
+  local out = {}
+  for _, tools in pairs(M.linters_by_ft()) do
+    for _, tool in ipairs(tools) do
+      table.insert(out, tool)
+    end
+  end
+  return out
+end
+
 ---Returns a table of the names of all of the LSPs in M.tools
 ---@return table<string>
 function M.ensure_installed()
-  local lsps = M.lsps()
   local out = {}
-  for _, tool in pairs(lsps) do
+  for _, tool in pairs(M.lsps()) do
     if not tableContains({ "gdscript" }, tool) then
       table.insert(out, tool)
     end
+  end
+
+  for _, linter in ipairs(M.linters()) do
+    table.insert(out, linter)
   end
 
   out = remove_dupes(out)
   return out
 end
 
+---@return table<string, string[]>
 function M.linters_by_ft()
   -- All this just to remove the "*" from the tools list
   local out = {}
-  for ft, tool in pairs(M.tools.linter) do
+  for ft, tools in pairs(M.tools.linter) do
     if ft ~= "*" then
       local linters = {}
-      for tool_name, _ in pairs(tool) do
+      for tool_name, _ in pairs(tools) do
         table.insert(linters, tool_name)
       end
 
