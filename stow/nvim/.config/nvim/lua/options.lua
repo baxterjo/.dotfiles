@@ -17,6 +17,11 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
 vim.lsp.inlay_hint.enable(true)
 
+-- Set default shell to zsh if installed at Linuxbrew location
+if vim.uv.fs_stat("/home/linuxbrew/.linuxbrew/bin/zsh") then
+  vim.o.shell = "/home/linuxbrew/.linuxbrew/bin/zsh"
+end
+
 -- Add custom filetypes
 vim.filetype.add({
   extension = {
