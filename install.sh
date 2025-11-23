@@ -11,7 +11,6 @@ set -o pipefail
 . scripts/config.sh
 . scripts/osx.sh
 . scripts/packages.sh
-. scripts/oh-my-zsh.sh
 
 cleanup() {
   info "Finishing..."
@@ -31,13 +30,6 @@ main() {
   install_packages
 
   success "Finished installing Homebrew packages"
-
-  info "################################################################################"
-  info "Oh-my-zsh"
-  info "################################################################################"
-  wait_input
-  install_oh_my_zsh
-  success "Finished installing Oh-my-zsh"
 
   info "################################################################################"
   info "Cask Apps"
