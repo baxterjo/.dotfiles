@@ -71,7 +71,7 @@ M.tools = {
   dap = {},
   -- Linters are run by nvim lint
   linter = {
-    dotenv = { dotenv_linter = {} },
+    dotenv = { ["dotenv-linter"] = {} },
   },
   -- Formatters are run by conform
   formatter = {
