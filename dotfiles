@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -o errexit
 
@@ -89,7 +89,10 @@ main() {
   info "########################"
   info "####### dotfiles #######"
   info "########################"
-  read -p "Press enter to start:"
+  # If in interactive mode, wait for input.
+  if [ -t 0 ]; then
+    read -r -p "Press enter to start:"
+  fi
   info "Bootstraping..."
   bootstrap
 
@@ -116,10 +119,11 @@ main() {
   /bin/bash ./install.sh
 }
 
-# If an argument is givent to this script, assume it is a function call.
-if [ -n "$1" ]; then
+# If an argument is given to this script, assume it is a function call.
+if [ -n "${1:-}" ]; then
   $1
 # Bash equivalent to `if __name__ == "__main__"` in python
-elif [ "${BASH_SOURCE[0]}" = "$0" ]; then
+# Also handles piped execution (curl ... | bash)
+elif [ "${BASH_SOURCE[0]}" = "$0" ] || [ "$0" = "bash" ] || [ "$0" = "-bash" ]; then
   main
 fi

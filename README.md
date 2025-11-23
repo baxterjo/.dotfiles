@@ -46,7 +46,13 @@ CLIs from other sources like `cargo` are listed in [cli](./scripts/cli.sh) scrip
 
 For a full installation, run the `dotfiles` script:
 ```sh
-curl -sO https://raw.githubusercontent.com/baxterjo/.dotfiles/main/dotfiles
+# Linux
+curl \
+    --proto '=https' \
+    --tlsv1.2 \
+    -fsSL \
+    https://raw.githubusercontent.com/baxterjo/.dotfiles/$REPO_BRANCH/dotfiles \
+    | bash
 ```
 To install only config:
 
