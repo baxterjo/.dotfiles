@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 set -o errexit
 
@@ -68,14 +68,14 @@ bootstrap_linux() {
 
 bootstrap() {
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Source some vars from the OS installation
     . /etc/os-release
 
     # Linux installation requires apt and snap.
-    if [[ "$NAME" != "Ubuntu" ]]; then
-      err "${NAME} is not a supported linux distro"
+    if [[ "$ID_LIKE" != "debian" ]]; then
+      err "${ID_LIKE} is not a supported linux distro"
       exit 1
     fi
-
     bootstrap_linux
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     bootstrap_mac
@@ -91,10 +91,24 @@ main() {
   info "########################"
   read -p "Press enter to start:"
   info "Bootstraping..."
-  boostrap
+  bootstrap
 
-  info "Cloning .dotfiles repo from $REPO_URL at $REPO_BRANCH into $REPO_PATH"
-  git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_PATH"
+  # Clone repo only if it doesn't already exist with the same remote
+  if [ -d "$REPO_PATH/.git" ]; then
+    existing_remote=$(git -C "$REPO_PATH" config --get remote.origin.url 2>/dev/null)
+    if [ "$existing_remote" == "$REPO_URL" ]; then
+      info ".dotfiles repository already exists at ${REPO_PATH}, checking out branch."
+      git -C "$REPO_PATH" checkout "$REPO_BRANCH"
+      git pull
+    else
+      err "Repository already exists at $REPO_PATH and does not have the same origin!"
+      err "local_origin : $existing_remote, desired_origin: $REPO_URL"
+      exit 1
+    fi
+  else
+    info "Cloning .dotfiles repo from $REPO_URL at $REPO_BRANCH into $REPO_PATH"
+    git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_PATH"
+  fi
 
   info "Change path to $REPO_PATH"
   cd "$REPO_PATH" >/dev/null
