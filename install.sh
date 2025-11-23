@@ -17,7 +17,11 @@ cleanup() {
 }
 
 wait_input() {
-  read -r -p "Press enter to continue: "
+  # This condition checks if STDIN is connected to a terminal.
+  # Also known as "interactive mode"
+  if [ -t 0 ]; then
+    read -r -p "Press enter to continue: "
+  fi
 }
 
 main() {
