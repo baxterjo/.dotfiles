@@ -128,10 +128,6 @@ function M.ensure_installed()
     end
   end
 
-  for _, linter in ipairs(M.linters()) do
-    table.insert(out, linter)
-  end
-
   out = remove_dupes(out)
   return out
 end
