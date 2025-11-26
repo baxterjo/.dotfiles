@@ -9,6 +9,14 @@ vim.diagnostic.config({
   float = {
     source = true,
   },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "",
+      [vim.diagnostic.severity.HINT] = "",
+    },
+  },
 })
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")

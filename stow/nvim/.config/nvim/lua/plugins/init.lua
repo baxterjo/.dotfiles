@@ -70,43 +70,91 @@ return {
   { import = "nvchad.blink.lazyspec" },
   {
     "nvim-tree/nvim-tree.lua",
-    opts = {
-      filters = {
-        git_ignored = false,
-      },
-      sort = {
-        sorter = function(nodes)
-          local is_special = function(name)
-            return name == "mod.rs" or name == "__init__.py" or name == "init.lua"
-          end
+    config = function()
+      -- Set up VS Code-like colors with precedence: errors > warnings > git
+      vim.api.nvim_set_hl(0, "NvimTreeGitDirty", { fg = "#e5c07b" }) -- Modified: yellow shading
+      vim.api.nvim_set_hl(0, "NvimTreeGitNew", { fg = "#98c379" }) -- Untracked: green shading
+      vim.api.nvim_set_hl(0, "NvimTreeDiagnosticWarningFileHL", { fg = "#e5c07b" }) -- Warning: yellow shading
+      vim.api.nvim_set_hl(0, "NvimTreeDiagnosticErrorFileHL", { fg = "#e06c75" }) -- Error: red shading
 
-          table.sort(nodes, function(a, b)
-            local a_type = a.type
-            local b_type = b.type
-
-            -- Directories come before files (default folders_first behavior)
-            if a_type ~= b_type then
-              return a_type == "directory"
+      require("nvim-tree").setup({
+        filters = {
+          git_ignored = false,
+        },
+        diagnostics = {
+          enable = true,
+          show_on_dirs = true,
+          show_on_open_dirs = false,
+          severity = {
+            min = vim.diagnostic.severity.WARN,
+            max = vim.diagnostic.severity.ERROR,
+          },
+          icons = {
+            hint = "•",
+            info = "•",
+            warning = "•",
+            error = "•",
+          },
+        },
+        renderer = {
+          highlight_git = "name",
+          highlight_diagnostics = "name",
+          highlight_opened_files = "name",
+          highlight_modified = "name",
+          icons = {
+            show = {
+              git = true,
+              folder = true,
+              file = true,
+              folder_arrow = true,
+            },
+            glyphs = {
+              git = {
+                unstaged = "M",
+                staged = "✓",
+                unmerged = "",
+                renamed = "➜",
+                untracked = "U",
+                deleted = "",
+                ignored = "◌",
+              },
+            },
+          },
+        },
+        sort = {
+          sorter = function(nodes)
+            local is_special = function(name)
+              return name == "mod.rs" or name == "__init__.py" or name == "init.lua"
             end
 
-            local a_name = a.name
-            local b_name = b.name
-            -- Special files come first (within their type category)
-            local a_is_special = is_special(a_name)
-            local b_is_special = is_special(b_name)
+            table.sort(nodes, function(a, b)
+              local a_type = a.type
+              local b_type = b.type
 
-            -- Within the same type, special files come first
-            if a_is_special and not b_is_special then
-              return true
-            elseif not a_is_special and b_is_special then
-              return false
-            end
+              -- Directories come before files (default folders_first behavior)
+              if a_type ~= b_type then
+                return a_type == "directory"
+              end
 
-            -- If both or neither are special files, sort alphabetically (case-insensitive)
-            return a_name:lower() < b_name:lower()
-          end)
-        end,
-      },
-    },
+              local a_name = a.name
+              local b_name = b.name
+              -- Special files come first (within their type category)
+              local a_is_special = is_special(a_name)
+              local b_is_special = is_special(b_name)
+
+              -- Within the same type, special files come first
+              if a_is_special and not b_is_special then
+                return true
+              elseif not a_is_special and b_is_special then
+                return false
+              end
+
+              -- If both or neither are special files, sort alphabetically (case-insensitive)
+              return a_name:lower() < b_name:lower()
+            end)
+          end,
+        },
+      })
+    end,
   },
 }
