@@ -18,7 +18,7 @@ install_apps() {
   info "Installing generic casks..."
   install_brew_casks "${generic_apps[@]}"
 
-  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  if [[ "$ID_LIKE" == "debian" ]]; then
     info "No linux specific casks to install"
     info "Installing linux apps..."
     install_linux_apps
@@ -71,6 +71,9 @@ install_linux_apps() {
   # This ensures wireshark does not prompt to allow non-sudo users to conduct captures.
   echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections
   sudo apt install -y wireshark
+
+  info "Installing snapd"
+  sudo apt install -y snapd
 
   # Snap does not like docker for some reason
   if [ -z ${IN_CONTAINER+x} ]; then
