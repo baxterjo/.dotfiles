@@ -11,6 +11,8 @@ set -o pipefail
 . scripts/config.sh
 . scripts/osx.sh
 . scripts/packages.sh
+# Source OS info
+. /etc/os-release
 
 cleanup() {
   info "Finishing..."
