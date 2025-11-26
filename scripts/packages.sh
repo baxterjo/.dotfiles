@@ -1,4 +1,4 @@
-generic_packages=(
+common_packages=(
   bat    # https://github.com/sharkdp/bat
   bottom # https://github.com/ClementTsang/bottom
   black  # Python code formatter
@@ -52,9 +52,9 @@ linux_packages=(
 install_packages() {
 
   info "Installing generic packages..."
-  install_brew_formulas "${generic_packages[@]}"
+  install_brew_formulas "${common_packages[@]}"
 
-  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  if [[ "$ID_LIKE" == "debian" ]]; then
     info "Installing linux packages..."
     install_brew_formulas "${linux_packages[@]}"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
