@@ -68,4 +68,42 @@ return {
     },
   },
   { import = "nvchad.blink.lazyspec" },
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      sort = {
+        sorter = function(nodes)
+          local is_special = function(name)
+            return name == "mod.rs" or name == "__init__.py" or name == "init.lua"
+          end
+
+          table.sort(nodes, function(a, b)
+            local a_type = a.type
+            local b_type = b.type
+
+            -- Directories come before files (default folders_first behavior)
+            if a_type ~= b_type then
+              return a_type == "directory"
+            end
+
+            local a_name = a.name
+            local b_name = b.name
+            -- Special files come first (within their type category)
+            local a_is_special = is_special(a_name)
+            local b_is_special = is_special(b_name)
+
+            -- Within the same type, special files come first
+            if a_is_special and not b_is_special then
+              return true
+            elseif not a_is_special and b_is_special then
+              return false
+            end
+
+            -- If both or neither are special files, sort alphabetically (case-insensitive)
+            return a_name:lower() < b_name:lower()
+          end)
+        end,
+      },
+    },
+  },
 }
