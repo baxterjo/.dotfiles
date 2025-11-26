@@ -71,6 +71,9 @@ return {
   {
     "nvim-tree/nvim-tree.lua",
     opts = {
+      filters = {
+        git_ignored = false,
+      },
       sort = {
         sorter = function(nodes)
           local is_special = function(name)
