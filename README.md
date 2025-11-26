@@ -51,7 +51,7 @@ curl \
     --proto '=https' \
     --tlsv1.2 \
     -fsSL \
-    https://raw.githubusercontent.com/baxterjo/.dotfiles/$REPO_BRANCH/dotfiles \
+    https://raw.githubusercontent.com/baxterjo/.dotfiles/main/dotfiles \
     | bash
 ```
 To install only config:
