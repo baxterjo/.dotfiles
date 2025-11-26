@@ -45,7 +45,6 @@ mac_packages=(
 )
 
 linux_packages=(
-  snap
   zsh
 )
 

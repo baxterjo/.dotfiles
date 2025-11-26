@@ -36,8 +36,7 @@ install_apps() {
 # Order of priority for installing apps should be:
 # 1. Homebrew
 # 2. apt / apt-get
-# 3. Snap (if necessary)
-# 4. Manual installation
+# 3. Manual installation
 install_linux_apps() {
 
   # Add APT repositories.
@@ -72,11 +71,4 @@ install_linux_apps() {
   echo "wireshark-common wireshark-common/install-setuid boolean true" | sudo debconf-set-selections
   sudo apt install -y wireshark
 
-  info "Installing snapd"
-  sudo apt install -y snapd
-
-  # Snap does not like docker for some reason
-  if [ -z ${IN_CONTAINER+x} ]; then
-    sudo snap install postman
-  fi
 }

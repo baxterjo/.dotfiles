@@ -71,7 +71,7 @@ bootstrap() {
     # Source some vars from the OS installation
     . /etc/os-release
 
-    # Linux installation requires apt and snap.
+    # Linux installation requires apt.
     if [[ "$ID_LIKE" != "debian" ]]; then
       err "${ID_LIKE} is not a supported linux distro"
       exit 1
