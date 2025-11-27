@@ -4,3 +4,12 @@ stow/nvim/.config/nvim/lazy-lock.json
 *.so
 *.dylib
 
+# Only keep ssh config files
+stow/ssh/.ssh/*
+!stow/ssh/.ssh/config
+
+# Only keep gpg config files.
+stow/gnupg/.gnupg/*
+!stow/gnupg/.gnupg/gpg-agent.conf
+!stow/gnupg/.gnupg/gpg.conf
+!stow/gnupg/.gnupg/pinentry-shim

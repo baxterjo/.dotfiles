@@ -48,9 +48,9 @@ return {
   {
     "Joakker/lua-json5",
     build = "./install.sh",
-    config = function()
-      require("json5")
-    end,
+    -- config = function()
+    --   require("json5")
+    -- end,
     lazy = false,
   },
   {
