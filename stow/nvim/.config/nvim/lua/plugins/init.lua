@@ -105,6 +105,7 @@ return {
 
       conf.renderer = {
         root_folder_label = false,
+        group_empty = true,
         highlight_git = "name",
         highlight_diagnostics = "name",
         highlight_opened_files = "name",
