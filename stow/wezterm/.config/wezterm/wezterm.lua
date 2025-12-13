@@ -127,6 +127,12 @@ local colors = {
   },
 }
 
+-- If XDG_CURRENT_DESKTOP contains KDE or cannot be found, window_decorations = TITLE | RESIZE
+-- otherwise make it compact
+local window_decorations = (string.find(os.getenv('XDG_CURRENT_DESKTOP') or '', 'KDE') ~= nil)
+    and 'RESIZE'
+  or 'TITLE | RESIZE'
+
 local config = {
   adjust_window_size_when_changing_font_size = false,
   audible_bell = 'Disabled',
@@ -178,7 +184,7 @@ local config = {
   tab_max_width = 80,
   underline_position = -4,
   use_fancy_tab_bar = true,
-  window_decorations = 'RESIZE',
+  window_decorations = window_decorations,
   window_frame = {
     font = wezterm.font({ family = font }),
     font_size = 18.0,
