@@ -22,7 +22,7 @@
 
 [user]
   name = baxterjo
-	email = j.bax080@gmail.com
+	email = me@baxterjo.dev
   # Signing key is per machine, so it should be in a machine specific file.
   
   # TODO: GPG keys are tied to a specific email. So swizzling the keys with
