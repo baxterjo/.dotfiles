@@ -9,6 +9,16 @@ jwt-decode() {
   jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<<$1
 }
 
+# Shows brew formulas installed with a brief description.
+wug() {
+  brew list --formula -1 | xargs brew desc
+}
+
+# Shows cargo binaries installed via cargo install
+wugc() {
+  cargo install --list
+}
+
 # Print commits with URLs to github
 ghhist() {
   local remote
