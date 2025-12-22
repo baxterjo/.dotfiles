@@ -127,11 +127,16 @@ local colors = {
   },
 }
 
--- If XDG_CURRENT_DESKTOP contains KDE or cannot be found, window_decorations = TITLE | RESIZE
--- otherwise make it compact
-local window_decorations = (string.find(os.getenv('XDG_CURRENT_DESKTOP') or '', 'KDE') ~= nil)
-    and 'RESIZE'
-  or 'TITLE | RESIZE'
+-- macOS uses RESIZE (no title bar), KDE on Linux uses RESIZE, other Linux uses TITLE | RESIZE
+local is_darwin = string.find(wezterm.target_triple, 'darwin') ~= nil
+local window_decorations
+if is_darwin then
+  window_decorations = 'RESIZE'
+elseif string.find(os.getenv('XDG_CURRENT_DESKTOP') or '', 'KDE') ~= nil then
+  window_decorations = 'RESIZE'
+else
+  window_decorations = 'TITLE | RESIZE'
+end
 
 local config = {
   adjust_window_size_when_changing_font_size = false,
