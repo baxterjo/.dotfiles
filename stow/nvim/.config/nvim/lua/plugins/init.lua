@@ -19,7 +19,14 @@ return {
   {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
-    config = true,
+    opts = {
+      diff_opts = {
+        auto_close_on_accept = true, -- Auto-close diff window after accepting
+        vertical_split = true, -- Use vertical splits
+        open_in_current_tab = false, -- Don't open in current tab (prevents infinite splits)
+        keep_terminal_focus = false, -- Focus stays on diff
+      },
+    },
     keys = {
       { "<leader>a", nil, desc = "AI" },
       { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "AI Toggle Claude" },
