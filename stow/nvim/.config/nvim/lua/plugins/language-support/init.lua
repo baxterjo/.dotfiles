@@ -6,12 +6,8 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    opts = { auto_install = true, sync_install = false },
-    config = function(_, opts)
+    config = function()
       dofile(vim.g.base46_cache .. "syntax")
-      require("nvim-treesitter.configs").setup(opts)
-      -- Register markdown parser for MDX files
-      vim.treesitter.language.register("markdown", "mdx")
     end,
   },
   {

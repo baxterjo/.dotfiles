@@ -49,6 +49,8 @@ vim.filetype.add({
 
 -- Registers dotenv files to be highlighted using bash syntax highlighting.
 vim.treesitter.language.register("bash", "dotenv")
+-- Registers MDX files to be highlighted using markdown syntax highlighting.
+vim.treesitter.language.register("markdown", "mdx")
 require("configs.language-support").config_lsp()
 require("configs.language-support").setup_rust()
 
