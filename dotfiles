@@ -33,6 +33,7 @@ install_xcode() {
   else
     info "Installing xCode Command Line Tools..."
     xcode-select --install
+    read -r -p "Complete the Xcode Command Line Tools installation, then press enter to continue: "
     sudo xcodebuild -license accept
   fi
 }
@@ -40,49 +41,23 @@ install_xcode() {
 install_homebrew() {
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
   if ! command -v brew &>/dev/null; then
-    info "Installing homebrew..."
     sudo --validate # reset `sudo` timeout to use Homebrew install in noninteractive mode
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 
   else
     warn "Homebrew already installed"
   fi
 }
 
-bootstrap_mac() {
+bootstrap() {
+  info "Installing xcode"
   install_xcode
+  info "Installing homebrew"
   install_homebrew
 
   info "Installing Git"
   brew install git
-}
-
-bootstrap_linux() {
-  sudo apt-get install -y build-essential procps curl file git
-  install_homebrew
-
-  test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-  test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >>~/.bashrc
-}
-
-bootstrap() {
-  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Source some vars from the OS installation
-    . /etc/os-release
-
-    # Linux installation requires apt.
-    if [[ "$ID_LIKE" != "debian" ]]; then
-      err "${ID_LIKE} is not a supported linux distro"
-      exit 1
-    fi
-    bootstrap_linux
-  elif [[ "$OSTYPE" == "darwin"* ]]; then
-    bootstrap_mac
-  else
-    err "${OSTYPE} not supported."
-    exit 1
-  fi
 }
 
 main() {

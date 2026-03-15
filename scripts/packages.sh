@@ -1,7 +1,7 @@
-common_packages=(
+packages=(
   bat    # https://github.com/sharkdp/bat
-  bottom # https://github.com/ClementTsang/bottom
   black  # Python code formatter
+  bottom # https://github.com/ClementTsang/bottom
   buf
   cmake # https://cmake.org/
   ctags
@@ -12,57 +12,40 @@ common_packages=(
   figlet    # http://www.figlet.org/ - Normal text to ascii art
   fzf       # https://github.com/junegunn/fzf
   git-delta # https://github.com/dandavison/delta
+  gpg
+  hyperfine # https://github.com/sharkdp/hyperfine
   imagemagick
   isort
   jq
-  hyperfine # https://github.com/sharkdp/hyperfine
   # lf         # https://github.com/gokcehan/lf
   llvm
   luarocks # https://luarocks.org/
+  mas # https://github.com/mas-cli/mas
   neovim
   nmap
   openssl
-  python3
+  pinentry-mac
   protobuf
+  python3
   ripgrep # https://github.com/BurntSushi/ripgre
-  rustup
   rust-analyzer
+  rustup
   sd # https://github.com/chmln/sd
   shellcheck
   stow
   stylua
+  telnet
   tmux
   wget
   zinit  # https://github.com/zdharma-continuum/zinit
   zoxide # https://github.com/ajeetdsouza/zoxide
 )
 
-mac_packages=(
-  gpg
-  pinentry-mac
-  mas # https://github.com/mas-cli/mas
-  telnet
-)
-
-linux_packages=(
-  zsh
-)
 
 install_packages() {
 
-  info "Installing generic packages..."
-  install_brew_formulas "${common_packages[@]}"
-
-  if [[ "$ID_LIKE" == "debian" ]]; then
-    info "Installing linux packages..."
-    install_brew_formulas "${linux_packages[@]}"
-  elif [[ "$OSTYPE" == "darwin"* ]]; then
-    info "Installing mac packages..."
-    install_brew_formulas "${mac_packages[@]}"
-  else
-    echo "${OSTYPE} not supported."
-    exit 1
-  fi
+  info "Installing homebrew formulae..."
+  install_brew_formulas "${packages[@]}"
 
   info "Cleaning up brew packages..."
   brew cleanup

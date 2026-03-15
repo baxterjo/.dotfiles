@@ -12,7 +12,7 @@ set -o pipefail
 . scripts/osx.sh
 . scripts/packages.sh
 # Source OS info
-. /etc/os-release
+# . /etc/os-release
 
 cleanup() {
   info "Finishing..."
@@ -55,10 +55,8 @@ main() {
   info "################################################################################"
   wait_input
 
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    setup_osx
-    success "Finished configuring MacOS defaults. NOTE: A restart is needed"
-  fi
+  setup_osx
+  success "Finished configuring MacOS defaults. NOTE: A restart is needed"
 
   stow_dotfiles
   success "Finished stowing dotfiles"

@@ -35,6 +35,7 @@ setup_osx() {
   defaults write com.apple.dock largesize -float 128
   defaults write com.apple.dock "minimize-to-application" -bool true
   defaults write com.apple.dock tilesize -float 40
+  defaults write com.apple.dock show-recents -bool false
 
   # Secondary click in external mouse
   defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string "TwoButton"

@@ -3,7 +3,8 @@ install_rust_tools() {
   rustup default stable
   rustup-init -y
 
-  source $HOME/.cargo/env
+  # shellcheck source=/dev/null
+  . "$HOME/.cargo/env"
 
   local cargo_packages=(
     'cargo-audit --features=fix'
@@ -11,11 +12,12 @@ install_rust_tools() {
     cargo-expand
     cargo-llvm-cov
     cargo-nextest
+    cargo-update
   )
 
   for p in "${cargo_packages[@]}"; do
     info "Installing <cargo ${p//[\"\']/}>"
-    cargo install ${p//[\"\']/}
+    cargo install "${p//[\"\']/}"
   done
 
   local rustup_components=(
