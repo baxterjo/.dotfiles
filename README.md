@@ -62,6 +62,14 @@ To install only config:
 ```sh
 stow -d stow --verbose 1 --target "${HOME}" "to_stow"
 ```
+## Installing on Remote Machines
+
+To install just tmux, neovim, and their configs on a remote macOS or Debian machine:
+
+```sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/baxterjo/.dotfiles/main/install-remote.sh)"
+```
+
 ## Reusing
 
 In order to reuse these scripts, here a summary of files you can change/adapt to your needs:
