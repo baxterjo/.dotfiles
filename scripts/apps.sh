@@ -1,6 +1,7 @@
 install_apps() {
   local apps=(
     betterdisplay # More control over display settings.
+    docker
     firefox
     font-meslo-lg-nerd-font
     google-chrome

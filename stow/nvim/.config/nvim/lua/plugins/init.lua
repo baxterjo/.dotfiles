@@ -166,8 +166,34 @@ return {
               return false
             end
 
-            -- If both or neither are special files, sort alphabetically (case-insensitive)
-            return a_name:lower() < b_name:lower()
+            -- If both or neither are special files, sort with natural numeric ordering
+            -- e.g. "Ch2" < "Ch10" instead of "Ch10" < "Ch2"
+            local a_lower = a_name:lower()
+            local b_lower = b_name:lower()
+            local a_pos, b_pos = 1, 1
+            while a_pos <= #a_lower and b_pos <= #b_lower do
+              local a_char = a_lower:sub(a_pos, a_pos)
+              local b_char = b_lower:sub(b_pos, b_pos)
+              if a_char:match("%d") and b_char:match("%d") then
+                -- Extract full numeric segments
+                local a_num = a_lower:match("%d+", a_pos)
+                local b_num = b_lower:match("%d+", b_pos)
+                local a_val = tonumber(a_num)
+                local b_val = tonumber(b_num)
+                if a_val ~= b_val then
+                  return a_val < b_val
+                end
+                a_pos = a_pos + #a_num
+                b_pos = b_pos + #b_num
+              else
+                if a_char ~= b_char then
+                  return a_char < b_char
+                end
+                a_pos = a_pos + 1
+                b_pos = b_pos + 1
+              end
+            end
+            return #a_lower < #b_lower
           end)
         end,
       }

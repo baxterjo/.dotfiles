@@ -4,6 +4,7 @@ require("nvchad.options")
 
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
+vim.o.exrc = true
 vim.diagnostic.config({
   virtual_text = true,
   float = {
