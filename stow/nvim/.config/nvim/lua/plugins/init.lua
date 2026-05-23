@@ -1,5 +1,25 @@
 return {
   require("plugins.language-support"),
+  "nvim-lua/plenary.nvim",
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+
+  {
+    "nvchad/ui",
+    config = function()
+      require("nvchad")
+    end,
+  },
+
+  {
+    "nvchad/base46",
+    lazy = true,
+    build = function()
+      require("base46").load_all_highlights()
+    end,
+  },
+
+  "nvchad/volt", -- optional, needed for theme switcher
+  -- or just use Telescope themes
   {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- uncomment for format on save
@@ -16,37 +36,37 @@ return {
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
   },
-  {
-    "coder/claudecode.nvim",
-    dependencies = { "folke/snacks.nvim" },
-    opts = {
-      diff_opts = {
-        auto_close_on_accept = true, -- Auto-close diff window after accepting
-        vertical_split = true, -- Use vertical splits
-        open_in_current_tab = false, -- Don't open in current tab (prevents infinite splits)
-        keep_terminal_focus = false, -- Focus stays on diff
-      },
-    },
-    keys = {
-      { "<leader>a", nil, desc = "AI" },
-      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "AI Toggle Claude" },
-      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "AI Focus Claude" },
-      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "AI Resume Claude" },
-      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "AI Continue Claude" },
-      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "AI Select Claude model" },
-      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "AI Add current buffer" },
-      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "AI Send to Claude" },
-      {
-        "<leader>as",
-        "<cmd>ClaudeCodeTreeAdd<cr>",
-        desc = "AI Add file",
-        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
-      },
-      -- Diff management
-      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "AI Accept diff" },
-      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "AI Deny diff" },
-    },
-  },
+  -- {
+  --   "coder/claudecode.nvim",
+  --   dependencies = { "folke/snacks.nvim" },
+  --   opts = {
+  --     diff_opts = {
+  --       auto_close_on_accept = true, -- Auto-close diff window after accepting
+  --       vertical_split = true, -- Use vertical splits
+  --       open_in_current_tab = false, -- Don't open in current tab (prevents infinite splits)
+  --       keep_terminal_focus = false, -- Focus stays on diff
+  --     },
+  --   },
+  --   keys = {
+  --     { "<leader>a", nil, desc = "AI" },
+  --     { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "AI Toggle Claude" },
+  --     { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "AI Focus Claude" },
+  --     { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "AI Resume Claude" },
+  --     { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "AI Continue Claude" },
+  --     { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "AI Select Claude model" },
+  --     { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "AI Add current buffer" },
+  --     { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "AI Send to Claude" },
+  --     {
+  --       "<leader>as",
+  --       "<cmd>ClaudeCodeTreeAdd<cr>",
+  --       desc = "AI Add file",
+  --       ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+  --     },
+  --     -- Diff management
+  --     { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "AI Accept diff" },
+  --     { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "AI Deny diff" },
+  --   },
+  -- },
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,

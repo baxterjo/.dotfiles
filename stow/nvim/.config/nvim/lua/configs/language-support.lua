@@ -46,7 +46,6 @@ M.tools = {
   --   install a linter.
   -- - If there is no formatting install a formatter.
 
-  -- LSPs are run by nvim-lspconfig
   lsp = {
     -- ["*"] = { harper_ls = {} },
     ansible = { ansiblels = {} },
@@ -60,7 +59,9 @@ M.tools = {
       mdx_analyzer = {
         init_options = {
           typescript = {
-            tsdk = vim.fn.expand("$HOME/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib"),
+            tsdk = vim.fn.expand(
+              "$HOME/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib"
+            ),
           },
         },
       },
@@ -188,23 +189,6 @@ function M.config_lsp()
 end
 
 function M.setup_rust()
-  local rustaceanvim_json = require("rustaceanvim.config.json")
-
-  --- Overwrite rustaceanvim's json parser to allow json with comments.
-  ---@param json_content string
-  ---@return table
-  ---@diagnostic disable-next-line: duplicate-set-field
-  function rustaceanvim_json.silent_decode(json_content)
-    rustaceanvim_json.warnings = {}
-    rustaceanvim_json.errors = {}
-    local ok, json_tbl = pcall(require("json5").parse, json_content)
-    if not ok or type(json_tbl) ~= "table" then
-      rustaceanvim_json.add_error(("Failed to decode json: %s"):format(json_tbl or "unknown error"))
-      return {}
-    end
-    return json_tbl
-  end
-
   -- Rustaceanvim Config
   vim.g.rustaceanvim = {
     -- Plugin configuration
