@@ -52,7 +52,17 @@ M.tools = {
     gdscript = { gdscript = {} },
     javascript = { ts_ls = {} },
     javascriptreact = { ts_ls = {} },
-    json = { jsonls = {} },
+    json = {
+      jsonls = {
+        filetypes = { "json", "jsonc" },
+        settings = {
+          json = {
+            validate = { enable = true },
+            trailingCommas = "ignore",
+          },
+        },
+      },
+    },
     lua = { lua_ls = {} },
     markdown = { marksman = {} },
     mdx = {

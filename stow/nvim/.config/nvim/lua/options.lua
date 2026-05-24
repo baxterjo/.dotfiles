@@ -45,6 +45,8 @@ vim.filetype.add({
   pattern = {
     [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml.github",
     ["%.env%.[%w_.-]+"] = "dotenv",
+    -- .vscode/*.json files are JSONC (allow comments + trailing commas)
+    [".*/%.vscode/.*%.json"] = "jsonc",
   },
 })
 
