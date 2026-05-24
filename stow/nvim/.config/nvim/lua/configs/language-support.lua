@@ -179,6 +179,13 @@ function M.config_lsp()
   local nvlsp = require("nvchad.configs.lspconfig")
   nvlsp.defaults()
 
+  vim.lsp.config("*", {
+    before_init = function(_, config)
+      local codesettings = require("codesettings")
+      codesettings.with_local_settings(config.name, config)
+    end,
+  })
+
   local servers = M.lsp_configs()
 
   -- lsps with default config
@@ -199,6 +206,17 @@ function M.config_lsp()
 end
 
 function M.setup_rust()
+  -- Sets up codesettings to use project specific settings.
+  vim.lsp.config("rust-analyzer", {
+    before_init = function(init_params, config)
+      local codesettings = require("codesettings")
+      codesettings.with_local_settings(config.name, config)
+      -- Some settings must be passed at init time, for example rust-analyzer.workspace.discoverConfig
+      if config.default_settings and config.default_settings[config.name] then
+        init_params.initializationOptions = config.default_settings[config.name]
+      end
+    end,
+  })
   -- Rustaceanvim Config
   vim.g.rustaceanvim = {
     -- Plugin configuration
@@ -247,7 +265,6 @@ function M.setup_rust()
           diagnostics = { enable = true },
         },
       },
-      load_vscode_settings = true,
     },
     -- DAP configuration
     dap = {},

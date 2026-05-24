@@ -368,3 +368,4 @@ alias st="git st"
 
 alias rgv="rg --no-heading --vimgrep"
 alias yeet="rm -rf"
+. "$HOME/.cargo/env"
