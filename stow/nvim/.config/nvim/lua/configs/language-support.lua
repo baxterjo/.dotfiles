@@ -90,6 +90,9 @@ M.tools = {
         filetypes = { "yaml.github" },
         init_options = { sessionToken = "" },
       },
+      docker_compose_language_service = {
+        filetypes = { "yaml.docker-compose" },
+      },
     },
   },
   dap = {},
