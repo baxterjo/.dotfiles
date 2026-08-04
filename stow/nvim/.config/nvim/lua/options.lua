@@ -8,6 +8,7 @@ vim.o.exrc = true
 vim.diagnostic.config({
   virtual_text = true,
   float = {
+    border = "rounded",
     source = true,
   },
   signs = {
@@ -19,6 +20,15 @@ vim.diagnostic.config({
     },
   },
 })
+-- Enable diagnostic float windows
+vim.o.updatetime = 500 -- how long to wait (ms) before CursorHold fires
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+  end,
+})
+
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
@@ -40,13 +50,22 @@ vim.filetype.add({
 
   filename = {
     [".env"] = "dotenv",
+    ["docker-compose.yml"] = "yaml.docker-compose",
+    ["docker-compose.yaml"] = "yaml.docker-compose",
+    ["compose.yml"] = "yaml.docker-compose",
+    ["compose.yaml"] = "yaml.docker-compose",
   },
 
   pattern = {
+    -- Github actions yaml files
     [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml.github",
+    -- dotenv files
     ["%.env%.[%w_.-]+"] = "dotenv",
     -- .vscode/*.json files are JSONC (allow comments + trailing commas)
     [".*/%.vscode/.*%.json"] = "jsonc",
+    -- Docker compose yaml files
+    ["docker%-compose%.[%w_.-]+%.ya?ml"] = "yaml.docker-compose",
+    ["compose%.[%w_.-]+%.ya?ml"] = "yaml.docker-compose",
   },
 })
 
