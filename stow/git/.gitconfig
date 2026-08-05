@@ -7,10 +7,7 @@
   excludesfile = ~/.config/git/ignore
 
   untrackedcache = true
-  # This is not compatible with cargo and git dependencies that
-  # include submodules as of 7/28/25
-  # cargo issue: https://github.com/rust-lang/cargo/issues/15775
-  ; fsmonitor = true
+  fsmonitor = true
   editor = nvim
 
 [init]
