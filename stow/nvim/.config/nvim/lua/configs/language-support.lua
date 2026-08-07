@@ -219,6 +219,12 @@ function M.setup_rust()
         init_params.initializationOptions = config.default_settings[config.name]
       end
     end,
+    -- nvchad.configs.lspconfig registers a wildcard on_init (vim.lsp.config("*", ...))
+    -- that strips semanticTokensProvider from every client's capabilities. Override it
+    -- here (per-name config wins over "*") so rust-analyzer keeps semantic tokens,
+    -- otherwise Rust highlighting falls back to treesitter, which can't tell a tuple
+    -- struct constructor call from a real function call.
+    on_init = function() end,
   })
   -- Rustaceanvim Config
   vim.g.rustaceanvim = {
