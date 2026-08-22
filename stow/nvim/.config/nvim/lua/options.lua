@@ -23,11 +23,7 @@ vim.diagnostic.config({
 -- Enable diagnostic float windows
 vim.o.updatetime = 500 -- how long to wait (ms) before CursorHold fires
 
-vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
-  end,
-})
+require("configs.diagnostics").setup()
 
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")

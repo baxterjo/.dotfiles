@@ -39,4 +39,5 @@ end, { desc = "Toggle inlay hints" })
 vim.keymap.del("n", "<leader>h")
 
 require("configs.dap").keymap()
+require("configs.diagnostics").keymap()
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
