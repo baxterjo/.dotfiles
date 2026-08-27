@@ -304,39 +304,8 @@ alias dot="cd ~/.dotfiles && nvim ."
 alias e="nvim"
 alias gmw="go mod why"
 alias fs="stat -f \"%z bytes\""
-alias icat="wezterm imgcat"
 alias duu="dust -b -H -r -X '.git'"
 alias tree="eza --tree --level=5 --icons --group-directories-first --color auto"
-
-# Kubernetes
-alias k="kubectl"
-alias kx="kubectx"
-alias k9="k9s -c pod --readonly"
-
-alias kfp="kf pods"
-alias kfs="kf services"
-alias kfd="kf deployments"
-alias kfplog="kf pods '' log"
-alias kfdlog="kf deployment '' log"
-
-alias kdc="kubectl describe configmap"
-alias kdd="kubectl describe deployment"
-alias kdp="kubectl describe pods"
-alias kds="kubectl describe svc"
-
-alias kctxs="kubectl config get-contexts"
-
-alias kgd="kubectl get deployements"
-alias kge="kubectl get events"
-alias kgi="kubectl get ingress"
-alias kgp="kubectl get pods"
-alias kgs="kubectl get svc"
-# List pods images
-alias kgpv="kubectl get pods -o jsonpath='{.items[*].spec.containers[*].image}' | tr -s '[[:space:]]' '\n' | sort | cut -d'/' -f3 | column -t -s':' | uniq -c | fzf --height 40%"
-
-alias kpf="kubectl port-forward"
-alias krrd="kubectl rollout restart deployment"
-alias ksd="kubectl scale deployment"
 
 # Create 5 random passwords
 alias mkpwd="xkcdpass --count=5 --acrostic=\"chaos\" -C \"first\" -R --min=5 --max=6 -D \"#@^&~_-;\""
