@@ -15,7 +15,7 @@ FOLDERS=(
   ".config/nvim"
   ".config/ripgrep"
   ".config/vim"
-  ".config/wezterm"
+  ".config/ghostty"
 )
 
 setup_github_ssh() {

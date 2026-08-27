@@ -7,7 +7,7 @@
   excludesfile = ~/.config/git/ignore
 
   untrackedcache = true
-  fsmonitor = true
+  fsmonitor = false
   editor = nvim
 
 [init]
