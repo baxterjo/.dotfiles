@@ -79,7 +79,7 @@ M.tools = {
     proto = { protols = {} },
     typescript = { ts_ls = {} },
     typescriptreact = { ts_ls = {} },
-    python = { basedpyright = {}, ruff = {} },
+    python = { ty = {}, ruff = {} },
     rust = { rust_analyzer = {} },
     -- Rust LSP is handled by rustaceanvim
     sh = { bashls = {} },

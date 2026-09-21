@@ -30,6 +30,7 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set splitright")
+vim.o.colorcolumn = "100"
 vim.lsp.inlay_hint.enable(true)
 
 -- Set default shell to zsh if installed at Linuxbrew location
@@ -69,6 +70,7 @@ vim.filetype.add({
 vim.treesitter.language.register("bash", "dotenv")
 -- Registers MDX files to be highlighted using markdown syntax highlighting.
 vim.treesitter.language.register("markdown", "mdx")
+-- Initialize language support.
 require("configs.language-support").config_lsp()
 require("configs.language-support").setup_rust()
 

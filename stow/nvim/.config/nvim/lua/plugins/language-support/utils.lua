@@ -22,22 +22,28 @@ return {
     end,
   },
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = function()
-      require("lazy").load({ plugins = { "markdown-preview.nvim" } })
-      vim.fn["mkdp#util#install"]()
-    end,
+    "selimacerbas/markdown-preview.nvim",
+    dependencies = { "selimacerbas/live-server.nvim" },
+    -- Upstream's README omits these, but this config sets `defaults = { lazy = true }`,
+    -- so the plugin needs an explicit trigger or its commands are never registered.
+    cmd = { "MarkdownPreview", "MarkdownPreviewRefresh", "MarkdownPreviewStop" },
     keys = {
       {
         "<leader>cp",
         ft = "markdown",
-        "<cmd>MarkdownPreviewToggle<cr>",
+        "<cmd>MarkdownPreview<cr>",
         desc = "Markdown Preview",
       },
     },
     config = function()
-      vim.cmd([[do FileType]])
+      require("markdown_preview").setup({
+        instance_mode = "takeover", -- or "multi"
+        port = 0, -- auto
+        open_browser = true,
+        default_theme = "dark",
+        debounce_ms = 300,
+        mermaid_elk = true,
+      })
     end,
   },
   -- NVIM Config Development (lua)

@@ -9,10 +9,13 @@ M.base46 = {
   theme = "catppuccin",
 
   integrations = { "neogit" },
-  -- hl_override = {
-  -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
-  -- },
+  hl_override = {
+    -- Subtle shading for the `colorcolumn` guide (see options.lua). One step
+    -- lighter than the `black` background so it reads as a hint, not a divider.
+    ColorColumn = { bg = "one_bg" },
+    -- 	Comment = { italic = true },
+    -- 	["@comment"] = { italic = true },
+  },
 }
 
 -- M.nvdash = { load_on_startup = true }
