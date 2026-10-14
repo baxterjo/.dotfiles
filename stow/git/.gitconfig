@@ -15,17 +15,14 @@
   defaultBranch = main
 
 [gpg]
-  program = gpg
+  format = ssh
 
 [user]
   name = baxterjo
 	email = me@baxterjo.dev
-  # Signing key is per machine, so it should be in a machine specific file.
-  
-  # TODO: GPG keys are tied to a specific email. So swizzling the keys with
-  # emails will result in an unverified commit in GH. Will either have to 
-  # use work emails for all commits on work machine or generate seperate
-  # GPG key for work and personal. Right now it is the former. 
+  # Override this default in the machine-specific include below if needed.
+  signingKey = ~/.ssh/id_ed25519.pub
+
 [include]
   path = ~/.config/git/.gitconfig-local
 
@@ -195,4 +192,7 @@
   current = yellow reverse
   local = yellow
   remote = green
+
+[includeIf "gitdir:~/projects/work/"]
+    path = ~/projects/work/.gitconfig
 

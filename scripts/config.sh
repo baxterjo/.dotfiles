@@ -55,3 +55,8 @@ stow_dotfiles() {
   # set permissions
   chmod a+x ~/.config/git/templates/hooks/pre-commit
 }
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    echo "Stowing dotfiles"
+    stow_dotfiles
+fi

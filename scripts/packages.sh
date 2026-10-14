@@ -50,3 +50,9 @@ install_packages() {
   info "Cleaning up brew packages..."
   brew cleanup
 }
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    . scripts/brew.sh
+    echo "Installing homebrew packages"
+    install_packages
+fi

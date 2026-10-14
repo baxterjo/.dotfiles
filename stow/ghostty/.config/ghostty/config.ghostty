@@ -36,4 +36,6 @@ shell-integration-features = cursor,no-sudo,title,ssh-env,ssh-terminfo,path
 keybind = shift+page_up=unbind
 keybind = shift+page_down=unbind
 
+config-file = ?local.ghostty
+
 

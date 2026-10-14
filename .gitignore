@@ -4,6 +4,7 @@ stow/nvim/.config/nvim/lazy-lock.json
 *.so
 *.dylib
 stow/git/.config/git/.gitconfig-local
+stow/ghostty/.config/ghostty/local.ghostty
 
 # Only keep ssh config files
 stow/ssh/.ssh/*

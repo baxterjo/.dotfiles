@@ -5,7 +5,7 @@ install_brew_formulas() {
       warn "Formula $formula is already installed"
     else
       info "Installing package < $formula >"
-      brew install "$formula"
+      brew install "$formula" -y
     fi
   done
 }
