@@ -23,6 +23,23 @@ M.ui = {
   statusline = {
     theme = "default",
     separator_style = "default",
+    modules = {
+      lsp = function()
+        local bufnr = require("nvchad.stl.utils").stbufnr()
+        local names, seen = {}, {}
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+          if not seen[client.name] then
+            names[#names + 1] = client.name
+            seen[client.name] = true
+          end
+        end
+        if #names == 0 then
+          return ""
+        end
+        table.sort(names)
+        return "%#St_Lsp#   LSP ~ " .. table.concat(names, ", ") .. " "
+      end,
+    },
     order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "cursor" },
   },
 }
