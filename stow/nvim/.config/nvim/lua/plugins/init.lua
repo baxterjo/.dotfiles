@@ -82,7 +82,9 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
+    event = "LspAttach",
     dependencies = {
+      "nvim-telescope/telescope-ui-select.nvim",
       {
         "nvim-telescope/telescope-live-grep-args.nvim",
         -- This will not install any breaking changes.
@@ -93,6 +95,15 @@ return {
     opts = {
       extensions_list = { "themes", "terms", "live_grep_args" },
     },
+    config = function(_, opts)
+      opts.extensions = opts.extensions or {}
+      -- Built-in LSP code actions use vim.ui.select. Show them near the cursor.
+      opts.extensions["ui-select"] = {
+        require("telescope.themes").get_cursor({ initial_mode = "normal" }),
+      }
+      require("telescope").setup(opts)
+      require("telescope").load_extension("ui-select")
+    end,
   },
   { import = "nvchad.blink.lazyspec" },
   {

@@ -199,7 +199,26 @@ function M.config_lsp()
     if tableContains({ "lua_ls", "rust_analyzer" }, name) then
       goto continue
     end
-    opts.on_attach = nvlsp.on_attach
+    opts.on_attach = function(client, bufnr)
+      nvlsp.on_attach(client, bufnr)
+
+      -- Match rustaceanvim's shortcuts for the other language servers.
+      vim.keymap.set({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, {
+        silent = true,
+        buffer = bufnr,
+        desc = "LSP code actions",
+      })
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {
+        silent = true,
+        buffer = bufnr,
+        desc = "LSP hover",
+      })
+
+      -- Let ty provide Python hover while Ruff provides lint fixes.
+      if client.name == "ruff" then
+        client.server_capabilities.hoverProvider = false
+      end
+    end
     opts.on_init = nvlsp.on_init
     opts.capabilities = nvlsp.capabilities
     vim.lsp.config(name, opts)
