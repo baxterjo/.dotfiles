@@ -3,8 +3,8 @@ stow/nvim/.config/nvim/.netrwhist
 stow/nvim/.config/nvim/lazy-lock.json
 *.so
 *.dylib
-stow/git/.config/git/.gitconfig-local
-stow/ghostty/.config/ghostty/local.ghostty
+# Any config file that is local to this machine gets ignored.
+stow/**/*local*
 
 # Only keep ssh config files
 stow/ssh/.ssh/*

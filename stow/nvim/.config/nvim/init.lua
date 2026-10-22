@@ -13,6 +13,20 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy_config = require("configs.lazy")
 
+local function load_local_config()
+  local path = vim.fn.stdpath("config") .. "/lua/nvim-local.lua"
+  if vim.fn.filereadable(path) == 0 then
+    return {}
+  end
+
+  local config = require("nvim-local")
+  assert(type(config) == "table", "nvim-local.lua must return a configuration table")
+  return config
+end
+
+-- Read once: plugin specs are needed now; local settings run after initialization.
+local local_config = load_local_config()
+
 -- load plugins
 require("lazy").setup({
   {
@@ -23,6 +37,7 @@ require("lazy").setup({
   },
 
   { import = "plugins" },
+  local_config.plugins or {},
 }, lazy_config)
 
 -- load theme
@@ -36,4 +51,9 @@ require("nvchad.autocmds")
 
 vim.schedule(function()
   require("mappings")
+
+  -- Apply optional machine-local overrides after shared initialization.
+  if local_config.setup then
+    local_config.setup()
+  end
 end)
