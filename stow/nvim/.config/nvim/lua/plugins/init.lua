@@ -37,34 +37,79 @@ return {
     build = "make install_jsregexp",
   },
   {
-    "coder/claudecode.nvim",
-    dependencies = { "folke/snacks.nvim" },
+    "carlos-algms/agentic.nvim",
+    lazy = true,
     opts = {
-      diff_opts = {
-        auto_close_on_accept = true, -- Auto-close diff window after accepting
-        vertical_split = true, -- Use vertical splits
-        open_in_current_tab = false, -- Don't open in current tab (prevents infinite splits)
-        keep_terminal_focus = false, -- Focus stays on diff
-      },
+      provider = "claude-agent-acp",
+      windows = { position = "right", width = "30%" },
+      diff_preview = { enabled = true, layout = "split" },
+      keymaps = { widget = { switch_model = "<leader>am" } },
     },
     keys = {
       { "<leader>a", nil, desc = "AI" },
-      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "AI Toggle Claude" },
-      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "AI Focus Claude" },
-      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "AI Resume Claude" },
-      { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "AI Continue Claude" },
-      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "AI Select Claude model" },
-      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "AI Add current buffer" },
-      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "AI Send to Claude" },
+      {
+        "<leader>ac",
+        function()
+          require("agentic").toggle({ auto_add_to_context = false })
+        end,
+        desc = "AI Toggle chat",
+      },
+      {
+        "<leader>af",
+        function()
+          require("agentic").open({ auto_add_to_context = false })
+        end,
+        desc = "AI Focus chat",
+      },
+      {
+        "<leader>ar",
+        function()
+          require("agentic").restore_session()
+        end,
+        desc = "AI Restore session",
+      },
+      {
+        "<leader>an",
+        function()
+          require("agentic").new_session()
+        end,
+        desc = "AI New session",
+      },
+      {
+        "<leader>al",
+        function()
+          require("agentic").select_session()
+        end,
+        desc = "AI Select live session",
+      },
+      {
+        "<leader>ab",
+        function()
+          require("agentic").add_file()
+        end,
+        desc = "AI Add current file",
+      },
       {
         "<leader>as",
-        "<cmd>ClaudeCodeTreeAdd<cr>",
-        desc = "AI Add file",
-        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+        function()
+          require("agentic").add_selection()
+        end,
+        mode = "x",
+        desc = "AI Add selection",
       },
-      -- Diff management
-      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "AI Accept diff" },
-      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "AI Deny diff" },
+      {
+        "<leader>as",
+        function()
+          local node = require("nvim-tree.api").tree.get_node_under_cursor()
+          if not node or not node.absolute_path or vim.fn.isdirectory(node.absolute_path) == 1 then
+            vim.notify("Select a file in nvim-tree to add to chat", vim.log.levels.INFO)
+            return
+          end
+          require("agentic").add_files_to_context({ files = { node.absolute_path } })
+        end,
+        ft = "NvimTree",
+        desc = "AI Add selected tree file",
+      },
     },
   },
   {
