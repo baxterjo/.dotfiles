@@ -22,21 +22,21 @@ return {
     end,
   },
   {
-    "selimacerbas/markdown-preview.nvim",
-    dependencies = { "selimacerbas/live-server.nvim" },
+    "selimacerbas/mdkite.nvim",
+    dependencies = { "selimacerbas/kitehost.nvim" },
     -- Upstream's README omits these, but this config sets `defaults = { lazy = true }`,
     -- so the plugin needs an explicit trigger or its commands are never registered.
-    cmd = { "MarkdownPreview", "MarkdownPreviewRefresh", "MarkdownPreviewStop" },
+    cmd = { "MdKite" },
     keys = {
       {
         "<leader>cp",
         ft = "markdown",
-        "<cmd>MarkdownPreview<cr>",
+        "<cmd>MdKite start<cr>",
         desc = "Markdown Preview",
       },
     },
     config = function()
-      require("markdown_preview").setup({
+      require("mdkite").setup({
         instance_mode = "takeover", -- or "multi"
         port = 0, -- auto
         open_browser = true,
