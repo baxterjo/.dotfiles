@@ -3,6 +3,7 @@ return {
   require("plugins.language-support.lsp"),
   require("plugins.language-support.linting"),
   require("plugins.language-support.utils"),
+  require("plugins.language-support.markdown"),
   {
     "mfussenegger/nvim-dap",
     dependencies = {

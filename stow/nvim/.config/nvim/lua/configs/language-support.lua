@@ -65,17 +65,6 @@ M.tools = {
     },
     lua = { lua_ls = {} },
     markdown = { marksman = {} },
-    mdx = {
-      mdx_analyzer = {
-        init_options = {
-          typescript = {
-            tsdk = vim.fn.expand(
-              "$HOME/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib"
-            ),
-          },
-        },
-      },
-    },
     proto = { protols = {} },
     typescript = { ts_ls = {} },
     typescriptreact = { ts_ls = {} },

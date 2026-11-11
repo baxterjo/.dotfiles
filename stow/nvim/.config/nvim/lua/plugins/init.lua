@@ -1,5 +1,4 @@
 return {
-  require("plugins.language-support"),
   "nvim-lua/plenary.nvim",
   { "nvim-tree/nvim-web-devicons", lazy = true },
 
@@ -39,6 +38,17 @@ return {
   {
     "carlos-algms/agentic.nvim",
     lazy = true,
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("AgenticStopGeneration", { clear = true }),
+        pattern = "Agentic*",
+        callback = function(event)
+          vim.keymap.set("n", "<Esc>", function()
+            require("agentic").stop_generation()
+          end, { buffer = event.buf, silent = true, desc = "AI Stop generation" })
+        end,
+      })
+    end,
     opts = {
       provider = "claude-agent-acp",
       windows = { position = "right", width = "30%" },
@@ -151,6 +161,8 @@ return {
     end,
   },
   { import = "nvchad.blink.lazyspec" },
+  -- Language-specific completion overrides must follow Blink's defaults.
+  require("plugins.language-support"),
   {
     "nvim-tree/nvim-tree.lua",
     opts = function(_, conf)
